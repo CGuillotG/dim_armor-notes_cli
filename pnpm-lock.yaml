@@ -1,0 +1,17 @@
+dependencies:
+  convert-csv-to-json: 1.0.0
+  jsonexport: 3.0.1
+lockfileVersion: 5.1
+packages:
+  /convert-csv-to-json/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-I4RfEq1MvRzE4nZAeWkZV/vl3LG/+EPdGcPQk+lom51eG8v0qKTWTtYPBP+Vq311T1Nc+sEI1LuyC1pX7mFoIA==
+  /jsonexport/3.0.1:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-lxDoAZxmWDt1wa4S75CUYe/ZASdmOYyhV7iYbF4npTWxrDv19ofZpJMGbt20W5Orx0hYuid65zGHpt6rRW0Z3A==
+specifiers:
+  convert-csv-to-json: ^1.0.0
+  jsonexport: ^3.0.1
