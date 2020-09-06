@@ -1,7 +1,7 @@
 {
   "name": "dim_armor-notes_cli",
   "version": "0.0.1",
-  "description": "Experiments for DIM D2 Utils",
+  "description": "Automatic Notes generator for Destiny 2 DIM Armor CSV exports",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "convert-csv-to-json": "^1.0.0",
-    "jsonexport": "^3.0.1"
+    "jsonexport": "^3.0.1",
+    "yargs": "^15.4.1"
   },
   "bin": {
     "DIM-Armor-Notes": "./index.js"
