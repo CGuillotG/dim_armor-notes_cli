@@ -1,0 +1,18 @@
+{
+  "name": "dim_armor-notes_cli",
+  "version": "0.0.1",
+  "description": "Experiments for DIM D2 Utils",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "convert-csv-to-json": "^1.0.0",
+    "jsonexport": "^3.0.1"
+  },
+  "bin": {
+    "DIM-Armor-Notes": "./index.js"
+  }
+}
