@@ -17,8 +17,8 @@ const generateNewArmor = (path) => {
     const fields = ['Mobility(Base)', 'Resilience(Base)', 'Recovery(Base)', 'Discipline(Base)', 'Intellect(Base)', 'Strength(Base)']
     const totalField = 'Total(Base)'
     const rules = [{ high: 2 }, { high: 1, low: 1 }, { high: 1 }, { low: 2 }, { low: 1 }]
-    const highCategories = ["GOD", "GREAT", "GOOD"]
-    const lowCategories = ["MAYBE", "SHARD"]
+    const highCategories = ["GOD", "GREAT", "GOOD", "MAYBE"]
+    const lowCategories = ["SHARD"]
 
     //Generate New Notes Array
     const newArmor = [...originalArmor.map(armor => {
