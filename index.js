@@ -34,7 +34,7 @@ const getArmor = (path) => {
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
     const [lowThreshold, highThreshold, totalThreshold] = [15, 20, 60]
-    const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC', 'MAX']
+    const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC']
     const [namingLow, namingHigh, namingTotal] = ['+', '*', '^']
     const totalField = 'Total(Base)'
     const rules = [{ high: 2 }, { high: 1, low: 1 }, { high: 1 }, { low: 2 }, { low: 1 }]
@@ -188,6 +188,7 @@ const hasMaxStat = (newArmor) => {
             if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
                 if (armor[field] >= maxStats[armor.Equippable][armor.Type][field]) {
                     armor['New Notes'] += '  MAX'
+                    armor['New Notes'] = armor['New Notes'].replace('MAX  MAX','MAX')
                 }
             }
         })
