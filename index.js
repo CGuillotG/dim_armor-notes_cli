@@ -5,6 +5,26 @@ const fs = require('fs')
 const yargs = require('yargs')
 
 const fields = ['Mobility(Base)', 'Resilience(Base)', 'Recovery(Base)', 'Discipline(Base)', 'Intellect(Base)', 'Strength(Base)']
+let maxStats = {
+    'Titan': {
+        'Helmet': { 'Mobility(Base)': 1, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
+    },
+    'Warlock': {
+        'Helmet': { 'Mobility(Base)': 2, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
+    },
+    'Hunter': {
+        'Helmet': { 'Mobility(Base)': 3, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
+    }
+}
 
 const getArmor = (path) => {
     let armorJson = csvToJson.fieldDelimiter(',').getJsonFromCsv(path)
@@ -14,7 +34,7 @@ const getArmor = (path) => {
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
     const [lowThreshold, highThreshold, totalThreshold] = [15, 20, 60]
-    const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC']
+    const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC', 'MAX']
     const [namingLow, namingHigh, namingTotal] = ['+', '*', '^']
     const totalField = 'Total(Base)'
     const rules = [{ high: 2 }, { high: 1, low: 1 }, { high: 1 }, { low: 2 }, { low: 1 }]
@@ -31,6 +51,9 @@ const generateNewArmor = (path) => {
 
         //Stats Analysis
         fields.forEach(field => {
+            if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
+                maxStats[armor.Equippable][armor.Type][field] = Math.max(maxStats[armor.Equippable][armor.Type][field],armor[field])
+            }
             if (parseInt(armor[field]) >= highThreshold) {
                 statNotes.push(field.substr(0, 3) + namingHigh)
                 highCount++
@@ -138,15 +161,10 @@ const generateNewArmor = (path) => {
 
         armor['New Notes'] = notes.toString().replace(/,/g, '  ')
         armor.Id = armor.Id.replace(/"""/g, '"')
-        armor['Diff'] = (armor['Notes'] !== armor['New Notes'])
         // armor['Vars'] = "*" + highCount + "  +" + lowCount + "  ^" + bigTotal
 
         return armor
     })]
-
-    console.table(newArmor.filter(na => {
-        return na.Diff
-    }), ['Name', 'Tier', 'Notes', 'New Notes', 'Diff'])
     return newArmor
 }
 
@@ -164,9 +182,29 @@ const saveJsonToCsv = (json, destinationPath) => {
     });
 }
 
+const hasMaxStat = (newArmor) => {
+    newArmor.forEach( armor => {
+        fields.forEach(field => {
+            if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+                if (armor[field] >= maxStats[armor.Equippable][armor.Type][field]) {
+                    armor['New Notes'] += '  MAX'
+                }
+            }
+        })
+    })
+
+    console.table(newArmor.filter(na => {
+        return (na['Notes'] !== na['New Notes'])
+    }), ['Name', 'Tier', 'Notes', 'New Notes'])
+
+    return newArmor
+}
+
 const generateNotes = (originPath, destinationPath) => {
 
     let newArmor = generateNewArmor(originPath);
+
+    newArmor = hasMaxStat(newArmor)
 
     let reducedNewArmor = reduceNewNotes(newArmor)
 
