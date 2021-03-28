@@ -4,6 +4,8 @@ const jsonexport = require('jsonexport');
 const fs = require('fs')
 const yargs = require('yargs')
 
+const fields = ['Mobility(Base)', 'Resilience(Base)', 'Recovery(Base)', 'Discipline(Base)', 'Intellect(Base)', 'Strength(Base)']
+
 const getArmor = (path) => {
     let armorJson = csvToJson.fieldDelimiter(',').getJsonFromCsv(path)
     return armorJson
@@ -14,7 +16,6 @@ const generateNewArmor = (path) => {
     const [lowThreshold, highThreshold, totalThreshold] = [15, 20, 60]
     const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC']
     const [namingLow, namingHigh, namingTotal] = ['+', '*', '^']
-    const fields = ['Mobility(Base)', 'Resilience(Base)', 'Recovery(Base)', 'Discipline(Base)', 'Intellect(Base)', 'Strength(Base)']
     const totalField = 'Total(Base)'
     const rules = [{ high: 2 }, { high: 1, low: 1 }, { high: 1 }, { low: 2 }, { low: 1 }]
     const highCategories = ["GOD", "GREAT", "GOOD", "MAYBE"]
