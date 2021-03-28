@@ -150,8 +150,8 @@ const generateNewArmor = (path) => {
     return newArmor
 }
 
-const reduceNewNotes = (newNotes) => {
-    return [...newNotes.map(armor => {
+const reduceNewNotes = (newArmor) => {
+    return [...newArmor.map(armor => {
         return { Hash: armor.Hash, Id: armor.Id, Tag: armor.Tag, Notes: armor['New Notes'] }
     })]
 }
