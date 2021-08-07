@@ -49,6 +49,11 @@ const generateNewArmor = (path) => {
         let lowCount = 0
         let bigTotal = false
 
+        // Patched csv bug on Armor with two mod slots
+        if (armor.SeasonalMod.charAt(0) === '"') {
+            armor.Notes = armor.Perks0
+        }
+
         //Stats Analysis
         fields.forEach(field => {
             if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
