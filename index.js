@@ -7,19 +7,19 @@ const yargs = require('yargs')
 const fields = ['Mobility(Base)', 'Resilience(Base)', 'Recovery(Base)', 'Discipline(Base)', 'Intellect(Base)', 'Strength(Base)']
 let maxStats = {
     'Titan': {
-        'Helmet': { 'Mobility(Base)': 1, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Helmet': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
     },
     'Warlock': {
-        'Helmet': { 'Mobility(Base)': 2, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Helmet': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
     },
     'Hunter': {
-        'Helmet': { 'Mobility(Base)': 3, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
+        'Helmet': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Gauntlets': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Chest Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 },
         'Leg Armor': { 'Mobility(Base)': 0, 'Resilience(Base)': 0, 'Recovery(Base)': 0, 'Discipline(Base)': 0, 'Intellect(Base)': 0, 'Strength(Base)': 0 }
