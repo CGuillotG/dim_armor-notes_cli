@@ -34,7 +34,7 @@ const getArmor = (path) => {
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
     const [lowThreshold, highThreshold, totalThreshold] = [15, 20, 60]
-    const oldNotes = ['AFK', 'TRANSMOG', 'NOSTALGIA', 'EXOTIC']
+    const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID']
     const [namingLow, namingHigh, namingTotal] = ['+', '*', '^']
     const totalField = 'Total(Base)'
     const rules = [{ high: 2 }, { high: 1, low: 1 }, { high: 1 }, { low: 2 }, { low: 1 }]
