@@ -70,7 +70,7 @@ const generateNewArmor = (path) => {
         { tier: "MAYBE", grade: "B", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'lt', num: 15 }, total: { op: 'gte', num: 60 } } },
     ]
     const shardRules = [
-        { tier: "SHARD", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'lt', num: 15 }, total: { op: 'gte', num: 60 } } },
+        { tier: "SHARD", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'lt', num: 15 }, total: { op: 'lt', num: 60 } } },
         { tier: "SHARD", rules: { high1: { op: 'lt', num: 15 }, high2: { op: 'lt', num: 15 } } },
     ]
 
