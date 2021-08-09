@@ -108,7 +108,7 @@ const generateNewArmor = (path) => {
                 if (!passesRule) { break }
             }
             if (boolArray.every(Boolean)) {
-                textNotes.push(r.tier)
+                textNotes.push(`${r.tier}${r.grade ? "_" + r.grade : ""}`)
                 return true
             } else {
                 return false
