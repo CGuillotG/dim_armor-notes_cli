@@ -75,7 +75,7 @@ const generateNewArmor = (path) => {
     ]
 
     //Generate New Notes Array
-    const newArmor = [...originalArmor.map(armor => {
+    return [...originalArmor.map(armor => {
         let textNotes = []
 
         // Patched csv bug on Armor with two mod slots
@@ -114,7 +114,6 @@ const generateNewArmor = (path) => {
 
         return armor
     })]
-    return newArmor
 }
 
 const reduceNewNotes = (newArmor) => {
