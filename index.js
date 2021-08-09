@@ -50,6 +50,29 @@ const compareNums = (num1, action, num2) => {
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
     const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID']
+    const mainRules = [
+        { tier: "GOD", grade: "SSS", rules: { high1: { op: 'gte', num: 30 }, high2: { op: 'gte', num: 25 } } },
+        { tier: "GOD", grade: "SS", rules: { high1: { op: 'gte', num: 30 }, high2: { op: 'gte', num: 20 } } },
+        { tier: "GOD", grade: "S", rules: { high1: { op: 'gte', num: 25 }, high2: { op: 'gte', num: 25 } } },
+        { tier: "GOD", grade: "A+", rules: { high1: { op: 'gte', num: 25 }, high2: { op: 'gte', num: 20 } } },
+        { tier: "GOD", grade: "A", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 20 } } },
+        { tier: "GOD", grade: "B+", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 18 } } },
+        { tier: "GOD", grade: "B", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 16 } } },
+        { tier: "GOD", grade: "C+", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 15 }, high3: { op: 'gte', num: 15 } } },
+        { tier: "GOD", grade: "C", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 15 }, high3: { op: 'gte', num: 13 } } },
+        { tier: "GOD", grade: "D", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 15 }, high3: { op: 'gte', num: 10 } } },
+        { tier: "GOD", grade: "F", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 15 }, high3: { op: 'lt', num: 10 }, total: { op: 'gte', num: 60 } } },
+        { tier: "GREAT", grade: "A", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'gte', num: 15 }, high3: { op: 'lt', num: 10 }, total: { op: 'lt', num: 60 } } },
+        { tier: "GREAT", grade: "B", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'lt', num: 15 }, total: { op: 'gte', num: 60 } } },
+        { tier: "GOOD", grade: "A", rules: { high1: { op: 'gte', num: 20 }, high2: { op: 'lt', num: 15 }, total: { op: 'lt', num: 60 } } },
+        { tier: "GOOD", grade: "B", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'gte', num: 15 }, total: { op: 'gte', num: 60 } } },
+        { tier: "MAYBE", grade: "A", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'gte', num: 15 }, total: { op: 'lt', num: 60 } } },
+        { tier: "MAYBE", grade: "B", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'lt', num: 15 }, total: { op: 'gte', num: 60 } } },
+    ]
+    const shardRules = [
+        { tier: "SHARD", rules: { high1: { op: 'gte', num: 15 }, high2: { op: 'lt', num: 15 }, total: { op: 'gte', num: 60 } } },
+        { tier: "SHARD", rules: { high1: { op: 'lt', num: 15 }, high2: { op: 'lt', num: 15 } } },
+    ]
 
     //Generate New Notes Array
     const newArmor = [...originalArmor.map(armor => {
