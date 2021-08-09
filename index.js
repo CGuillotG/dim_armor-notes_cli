@@ -77,6 +77,8 @@ const generateNewArmor = (path) => {
     //Generate New Notes Array
     return [...originalArmor.map(armor => {
         let textNotes = []
+        let stats = []
+        let highStats = { high1: 0, high2: 0, high3: 0, total: parseInt(armor[totalField]) }
 
         // Patched csv bug on Armor with two mod slots
         if (armor.SeasonalMod.charAt(0) === '"') {
@@ -88,12 +90,30 @@ const generateNewArmor = (path) => {
             if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
                 maxStats[armor.Equippable][armor.Type][field] = Math.max(maxStats[armor.Equippable][armor.Type][field], armor[field])
             }
+            stats.push(parseInt(armor[field]))
         })
         if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
             maxStats[armor.Equippable][armor.Type][totalField] = Math.max(maxStats[armor.Equippable][armor.Type][totalField], armor[totalField])
         }
 
+        //Extract Higher Stats
+        [highStats.high1, highStats.high2, highStats.high3] = stats.sort((a, b) => { return b - a })
 
+        //Evaluate Tier Rules
+        mainRules.some(r => { //Using .some instead of a forEach to exit early
+            let boolArray = []
+            for (key in r.rules) {
+                passesRule = compareNums(highStats[key], r.rules[key].op, r.rules[key].num)
+                boolArray.push(passesRule)
+                if (!passesRule) { break }
+            }
+            if (boolArray.every(Boolean)) {
+                textNotes.push(r.tier)
+                return true
+            } else {
+                return false
+            }
+        })
 
         //Old Notes
         oldNotes.forEach(note => {
@@ -102,6 +122,23 @@ const generateNewArmor = (path) => {
             }
         })
 
+        //Evaluate Shard Rules
+        if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+            shardRules.some(r => { //Using .some instead of a forEach to exit early
+                let boolArray = []
+                for (key in r.rules) {
+                    passesRule = compareNums(highStats[key], r.rules[key].op, r.rules[key].num)
+                    boolArray.push(passesRule)
+                    if (!passesRule) { break }
+                }
+                if (boolArray.every(Boolean)) {
+                    textNotes.push(r.tier)
+                    return true
+                } else {
+                    return false
+                }
+            })
+        }
 
         //Tag Item not falling on any category
         if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
