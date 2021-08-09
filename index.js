@@ -103,14 +103,13 @@ const generateNewArmor = (path) => {
         })
 
 
-        //Non-Class Remaining
+        //Tag Item not falling on any category
         if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
-            textNotes.push('SHARD')
+            textNotes.push('MissingNo.')
         }
 
         armor['New Notes'] = textNotes.toString().replace(/,/g, '  ')
         armor.Id = armor.Id.replace(/"""/g, '"')
-        // armor['Vars'] = "*" + highCount + "  +" + lowCount + "  ^" + bigTotal
 
         return armor
     })]
