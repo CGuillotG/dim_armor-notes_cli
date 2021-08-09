@@ -32,6 +32,21 @@ const getArmor = (path) => {
     return armorJson
 }
 
+const compareNums = (num1, action, num2) => {
+    switch (action) {
+        case 'gte':
+            return num1 >= num2
+        case 'gt':
+            return num1 > num2
+        case 'eq':
+            return num1 == num2
+        case 'lt':
+            return num1 < num2
+        case 'lte':
+            return num1 <= num2
+    }
+}
+
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
     const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID']
