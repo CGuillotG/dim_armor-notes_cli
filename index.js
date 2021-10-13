@@ -85,6 +85,9 @@ const generateNewArmor = (path) => {
             armor.Notes = armor.Perks0
         }
 
+        //Fix for Festival of the Lost Masks
+        if (armor.Type === 'Festival Mask') {armor.Type = 'Helmet'}
+
         //Stats Analysis
         fields.forEach(field => {
             if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
