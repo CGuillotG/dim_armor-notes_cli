@@ -81,11 +81,6 @@ const generateNewArmor = (path) => {
         let stats = []
         let highStats = { high1: 0, high2: 0, high3: 0, total: parseInt(armor[totalField]) }
 
-        // Patched csv bug on Armor with two mod slots
-        if (armor.SeasonalMod.charAt(0) === '"') {
-            armor.Notes = armor.Perks0
-        }
-
         //Fix for Festival of the Lost Masks (currently it is being excluded from the csv)
         if (armor.Type === 'Festival Mask') {
           armor.Type = 'Helmet'
