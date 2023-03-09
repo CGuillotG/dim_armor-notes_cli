@@ -1,6 +1,6 @@
 {
   "name": "@cguillot/dim_armor-notes_cli",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Automatic Notes generator for Destiny 2 DIM Armor CSV exports",
   "main": "index.js",
   "author": "CGuillot <carlos@guillot.dev>",
