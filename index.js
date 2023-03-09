@@ -49,7 +49,7 @@ const compareNums = (num1, action, num2) => {
 
 const generateNewArmor = (path) => {
     const originalArmor = getArmor(path)
-    const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID']
+    const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID', 'MASTERWORK']
     const mainRules = [
       { tier: 'GOD', grade: 'SSS', rules: { high1: { op: 'gte', num: 30 }, high2: { op: 'gte', num: 25 } } },
       { tier: 'GOD', grade: 'SS', rules: { high1: { op: 'gte', num: 30 }, high2: { op: 'gte', num: 20 } } },
