@@ -10,7 +10,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "convert-csv-to-json": "^1.0.0",
+    "csvtojson": "^2.0.10",
     "jsonexport": "^3.0.1",
     "yargs": "^15.4.1"
   },

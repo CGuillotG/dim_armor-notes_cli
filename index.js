@@ -27,9 +27,11 @@ let maxStats = {
   }
 }
 
-const getArmor = (path) => {
-    let armorJson = csvToJson.fieldDelimiter(',').getJsonFromCsv(path)
-    return armorJson
+const getArmor = path => {
+  return csvToJson({
+    delimiter: ',',
+    quote: '"'
+  }).fromFile(path)
 }
 
 const compareNums = (num1, action, num2) => {
@@ -47,8 +49,8 @@ const compareNums = (num1, action, num2) => {
   }
 }
 
-const generateNewArmor = (path) => {
-    const originalArmor = getArmor(path)
+const generateNewArmor = path => {
+  return getArmor(path).then(originalArmor => {
     const oldNotes = ['AFK', 'TEMP', 'NOSTALGIA', 'EXOTIC', 'RAID', 'MASTERWORK']
     const mainRules = [
       { tier: 'GOD', grade: 'SSS', rules: { high1: { op: 'gte', num: 30 }, high2: { op: 'gte', num: 25 } } },
@@ -159,6 +161,7 @@ const generateNewArmor = (path) => {
         return armor
       })
     ]
+  })
 }
 
 const reduceNewNotes = newArmor => {
@@ -201,16 +204,20 @@ const hasMaxStat = newArmor => {
   return newArmor
 }
 
-const generateNotes = (originPath, destinationPath) => {
-
-    let newArmor = generateNewArmor(originPath);
-
-    newArmor = hasMaxStat(newArmor)
-
-    let reducedNewArmor = reduceNewNotes(newArmor)
-
-    saveJsonToCsv(reducedNewArmor, destinationPath)
-
+const generateNotes = async (originPath, destinationPath) => {
+  generateNewArmor(originPath)
+    .then(newArmor => {
+      return hasMaxStat(newArmor)
+    })
+    .then(newArmorMax => {
+      return reduceNewNotes(newArmorMax)
+    })
+    .then(reducedNewArmor => {
+      saveJsonToCsv(reducedNewArmor, destinationPath)
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }
 
 //Yargs setup
