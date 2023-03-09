@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const csvToJson = require('convert-csv-to-json')
+const csvToJson = require('csvtojson')
 const jsonexport = require('jsonexport')
 const fs = require('fs')
 const yargs = require('yargs')
