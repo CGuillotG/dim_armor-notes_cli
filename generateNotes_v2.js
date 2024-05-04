@@ -33,9 +33,9 @@ const distRank = {
       RecRes: 4,
       Recov: 7
     },
-    topExtra: {
-      Mobil: 12
-    },
+    // topExtra: {
+    //   Mobil: 12
+    // },
     bottom: {
       Discip: 2,
       DisStr: 3,
