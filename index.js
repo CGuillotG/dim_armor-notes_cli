@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { generateNotes } from './generateNotes_v1.js'
 import { generateNotes2 } from './generateNotes_v2.js'
+import { generateNotes3 } from './generateNotes_v3.js'
 import yargs from 'yargs'
 
 //Yargs setup
@@ -17,7 +18,7 @@ const argv = yargs
   })
   .option('method', {
     alias: 'm',
-    description: 'Use armor notes generation method from version 1 or 2',
+    description: 'Use armor notes generation method from version 1, 2, or 3',
     type: 'number'
   })
   .help()
@@ -29,10 +30,16 @@ const destination = argv.destination || 'destinyArmorNotes'
 const method = argv.method || 1
 
 console.log('Method ' + method)
-if (method === 2) {
-  generateNotes2(origin + '.csv', destination + '.csv')
-// } else if (method === 3) {
-//   generateNotes3(origin + '.csv', destination + '.csv')
-} else {
-  generateNotes(origin + '.csv', destination + '.csv')
+
+switch (method) {
+  case 3:
+    generateNotes3(origin + '.csv', destination + '.csv')
+    break
+  case 2:
+    generateNotes2(origin + '.csv', destination + '.csv')
+    break
+  case 1:
+  default:
+    generateNotes(origin + '.csv', destination + '.csv')
+    break
 }
