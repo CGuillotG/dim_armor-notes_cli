@@ -17,8 +17,8 @@ export const printDifferences = newArmor => {
   let multiLineArray = []
 
   singleLineArray.forEach((elem, index) => {
-    let notes = elem.Notes.split('  ')
-    let newNotes = elem.NewNotes.split('  ')
+    let notes = elem.Notes.split('  ').filter(note => note !== '-')
+    let newNotes = elem.NewNotes.split('  ').filter(note => note !== '-')
     elem.No = index + 1
     elem.Notes = notes[0]
     elem.NewNotes = newNotes[0]
