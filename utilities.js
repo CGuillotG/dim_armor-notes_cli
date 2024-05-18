@@ -22,9 +22,10 @@ export const printDifferences = newArmor => {
     elem.No = index + 1
     elem.Notes = notes[0]
     elem.NewNotes = newNotes[0]
-    if (newNotes[0].length !== 4) {
-      elem.NNLength = newNotes[0].length
-    }
+    // Can't remember the purpose of this, so I'm commenting it out and will delete it later
+      // if (newNotes[0].length !== 4) {
+      //   elem.NNLength = newNotes[0].length
+      // }
     if (index !== 0) {
       multiLineArray.push({})
     }
