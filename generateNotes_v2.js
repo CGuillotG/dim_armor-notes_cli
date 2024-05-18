@@ -229,7 +229,7 @@ const generateNewArmor2 = path => {
             if (armorBottomScore > highestArmorBottomDistScore[1]) { highestArmorBottomDistScore = [bottomDist, armorBottomScore] }
           }
 
-          //Compare to MaxDist Combo values
+          //Register highest MaxDist Combo values per class and slot
           for (let armorTopDist in armor.TopDists) {
             for (let armorBottomDist in armor.BottomDists) {
               if (armor.Tier !== 'Exotic' && !armor.isFestivalMask) {
