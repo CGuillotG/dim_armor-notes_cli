@@ -203,32 +203,32 @@ const fiveStats = [
   { percentile: 1, value: 13.2 }
 ]
 
-const sixStats = [
-  { percentile: 0, value: 2 },
-  { percentile: 0.7165, value: 7.33 },
-  { percentile: 0.7165, value: 7.5 },
-  { percentile: 0.7165, value: 7.66 },
-  { percentile: 0.7167, value: 7.83 },
-  { percentile: 0.717, value: 8 },
-  { percentile: 0.7179, value: 8.16 },
-  { percentile: 0.7199, value: 8.33 },
-  { percentile: 0.7237, value: 8.5 },
-  { percentile: 0.7305, value: 8.66 },
-  { percentile: 0.7416, value: 8.83 },
-  { percentile: 0.7583, value: 9 },
-  { percentile: 0.7809, value: 9.16 },
-  { percentile: 0.8095, value: 9.33 },
-  { percentile: 0.8426, value: 9.5 },
-  { percentile: 0.8775, value: 9.66 },
-  { percentile: 0.9115, value: 9.83 },
-  { percentile: 0.9412, value: 10 },
-  { percentile: 0.9648, value: 10.16 },
-  { percentile: 0.9815, value: 10.33 },
-  { percentile: 0.9917, value: 10.5 },
-  { percentile: 0.997, value: 10.66 },
-  { percentile: 0.9993, value: 10.83 },
-  { percentile: 0.9999, value: 11 },
-  { percentile: 1, value: 11.16 }
-];
+// const sixStats = [
+//   { percentile: 0, value: 2 },
+//   { percentile: 0.7165, value: 7.33 },
+//   { percentile: 0.7165, value: 7.5 },
+//   { percentile: 0.7165, value: 7.66 },
+//   { percentile: 0.7167, value: 7.83 },
+//   { percentile: 0.717, value: 8 },
+//   { percentile: 0.7179, value: 8.16 },
+//   { percentile: 0.7199, value: 8.33 },
+//   { percentile: 0.7237, value: 8.5 },
+//   { percentile: 0.7305, value: 8.66 },
+//   { percentile: 0.7416, value: 8.83 },
+//   { percentile: 0.7583, value: 9 },
+//   { percentile: 0.7809, value: 9.16 },
+//   { percentile: 0.8095, value: 9.33 },
+//   { percentile: 0.8426, value: 9.5 },
+//   { percentile: 0.8775, value: 9.66 },
+//   { percentile: 0.9115, value: 9.83 },
+//   { percentile: 0.9412, value: 10 },
+//   { percentile: 0.9648, value: 10.16 },
+//   { percentile: 0.9815, value: 10.33 },
+//   { percentile: 0.9917, value: 10.5 },
+//   { percentile: 0.997, value: 10.66 },
+//   { percentile: 0.9993, value: 10.83 },
+//   { percentile: 0.9999, value: 11 },
+//   { percentile: 1, value: 11.16 }
+// ];
 
-export { totalStat, singleStat, twoStats, threeStats, fourStats, fiveStats, sixStats }
+export { totalStat, singleStat, twoStats, threeStats, fourStats, fiveStats }

@@ -1,63 +1,67 @@
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from './utilities.js'
-import { oldNotes, guardians, slots, fieldMap, topFields, bottomFields } from './enums.js'
+import { oldNotes, guardians, slots, fieldMap } from './enums.js'
 import { twoStats, threeStats, fourStats, fiveStats } from './percentileTables.js'
 
-const statDists = [
-  ['Mob', 'Dis'],
-  ['Mob', 'Int'],
-  ['Mob', 'Str'],
-  ['Res', 'Dis'],
-  ['Res', 'Int'],
-  ['Res', 'Str'],
-  ['Rec', 'Dis'],
-  ['Rec', 'Int'],
-  ['Rec', 'Str'],
-  ['Mob', 'Dis', 'Int'],
-  ['Mob', 'Dis', 'Str'],
-  ['Mob', 'Int', 'Str'],
-  ['Res', 'Dis', 'Int'],
-  ['Res', 'Dis', 'Str'],
-  ['Res', 'Int', 'Str'],
-  ['Rec', 'Dis', 'Int'],
-  ['Rec', 'Dis', 'Str'],
-  ['Rec', 'Int', 'Str'],
-  ['Mob', 'Res', 'Dis'],
-  ['Mob', 'Rec', 'Dis'],
-  ['Res', 'Rec', 'Dis'],
-  ['Mob', 'Res', 'Int'],
-  ['Mob', 'Rec', 'Int'],
-  ['Res', 'Rec', 'Int'],
-  ['Mob', 'Res', 'Str'],
-  ['Mob', 'Rec', 'Str'],
-  ['Res', 'Rec', 'Str'],
-  ['Mob', 'Res', 'Dis', 'Int'],
-  ['Mob', 'Res', 'Dis', 'Str'],
-  ['Mob', 'Res', 'Int', 'Str'],
-  ['Mob', 'Rec', 'Dis', 'Int'],
-  ['Mob', 'Rec', 'Dis', 'Str'],
-  ['Mob', 'Rec', 'Int', 'Str'],
-
-  ['Res', 'Rec', 'Dis', 'Int'],
-
-  ['Res', 'Rec', 'Dis', 'Str'],
-  ['Res', 'Rec', 'Int', 'Str'],
-  ['Mob', 'Dis', 'Int', 'Str'],
-  ['Res', 'Dis', 'Int', 'Str'],
-  ['Rec', 'Dis', 'Int', 'Str'],
-  ['Res', 'Rec', 'Dis', 'Int', 'Str'],
-  ['Mob', 'Rec', 'Dis', 'Int', 'Str'],
-  ['Mob', 'Res', 'Dis', 'Int', 'Str'],
-  ['Mob', 'Res', 'Rec', 'Int', 'Str'],
-  ['Mob', 'Res', 'Rec', 'Dis', 'Str'],
-  ['Mob', 'Res', 'Rec', 'Dis', 'Int']
+const statClassDists = [
+  [['Mob', 'Dis'], ['Hunter']],
+  [['Mob', 'Int'], ['Hunter']],
+  [['Mob', 'Str'], ['Hunter']],
+  [['Res', 'Dis'], ['Titan', 'Warlock', 'Hunter']],
+  [['Res', 'Int'], ['Titan', 'Warlock', 'Hunter']],
+  [['Res', 'Str'], ['Titan', 'Warlock', 'Hunter']],
+  [['Rec', 'Dis'], ['Titan', 'Warlock']],
+  [['Rec', 'Int'], ['Titan', 'Warlock']],
+  [['Rec', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Dis', 'Int'], ['Hunter']],
+  [['Mob', 'Dis', 'Str'], ['Hunter']],
+  [['Mob', 'Int', 'Str'], ['Hunter']],
+  [['Res', 'Dis', 'Int'], ['Titan', 'Warlock', 'Hunter']],
+  [['Res', 'Dis', 'Str'], ['Titan', 'Warlock', 'Hunter']],
+  [['Res', 'Int', 'Str'], ['Titan', 'Warlock', 'Hunter']],
+  [['Rec', 'Dis', 'Int'], ['Titan', 'Warlock']],
+  [['Rec', 'Dis', 'Str'], ['Titan', 'Warlock']],
+  [['Rec', 'Int', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Res', 'Dis'], ['Titan', 'Hunter']],
+  [['Mob', 'Rec', 'Dis'], []],
+  [['Res', 'Rec', 'Dis'], ['Titan', 'Warlock']],
+  [['Mob', 'Res', 'Int'], ['Hunter']],
+  [['Mob', 'Rec', 'Int'], []],
+  [['Res', 'Rec', 'Int'], ['Titan', 'Warlock']],
+  [['Mob', 'Res', 'Str'], ['Hunter']],
+  [['Mob', 'Rec', 'Str'], []],
+  [['Res', 'Rec', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Res', 'Dis', 'Int'], ['Hunter']],
+  [['Mob', 'Res', 'Dis', 'Str'], ['Hunter']],
+  [['Mob', 'Res', 'Int', 'Str'], ['Hunter']],
+  [['Mob', 'Rec', 'Dis', 'Int'], []],
+  [['Mob', 'Rec', 'Dis', 'Str'], []],
+  [['Mob', 'Rec', 'Int', 'Str'], []],
+  [['Res', 'Rec', 'Dis', 'Int'], ['Titan', 'Warlock']],
+  [['Res', 'Rec', 'Dis', 'Str'], ['Titan', 'Warlock']],
+  [['Res', 'Rec', 'Int', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Dis', 'Int', 'Str'], ['Hunter']],
+  [['Res', 'Dis', 'Int', 'Str'], ['Titan', 'Warlock', 'Hunter']],
+  [['Rec', 'Dis', 'Int', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Res', 'Rec', 'Dis'], []],
+  [['Mob', 'Res', 'Rec', 'Int'], []],
+  [['Mob', 'Res', 'Rec', 'Str'], []],
+  [['Res', 'Rec', 'Dis', 'Int', 'Str'], ['Titan', 'Warlock']],
+  [['Mob', 'Rec', 'Dis', 'Int', 'Str'], []],
+  [['Mob', 'Res', 'Dis', 'Int', 'Str'], ['Hunter']],
+  [['Mob', 'Res', 'Rec', 'Int', 'Str'], []],
+  [['Mob', 'Res', 'Rec', 'Dis', 'Str'], []],
+  [['Mob', 'Res', 'Rec', 'Dis', 'Int'], []]
 ]
 
 const maxDists = {} //Populate initial maxDistCombos
 for (let guardian of guardians) {
   //maxDists[guardian][slot][distCombo]
   let distCombos = {}
-  statDists.forEach(distList => {
-    distCombos[distList.join('')] = -Infinity
+  statClassDists.forEach(distArray => {
+    let [distList, distClasses] = distArray
+    if (distClasses.includes(guardian)) {
+      distCombos[distList.join('')] = -Infinity
+    }
   })
   maxDists[guardian] = {}
   for (let slot of slots) {
@@ -74,7 +78,6 @@ export const generateNotes3 = async (originPath, destinationPath) => {
     })
     .then(newArmorMax => {
       printDifferences(newArmorMax)
-      console.log(maxDists['Titan']['Chest Armor'])
       return reduceNewNotes(newArmorMax)
     })
     .then(reducedNewArmor => {
@@ -88,7 +91,6 @@ export const generateNotes3 = async (originPath, destinationPath) => {
 
 const generateNewArmor3 = path => {
   return getArmor(path).then(originalArmor => {
-    // return [...originalArmor.filter(oA => oA.Equippable === 'Titan' && oA.Type === 'Chest Armor' && oA.Tier === 'Legendary')].map(armor => {
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')
 
@@ -106,12 +108,15 @@ const generateNewArmor3 = path => {
         armor.Dists = {}
 
         //Iterate on Dists
-        statDists.forEach(distList => {
-          let armorPercentile = getDistPercentile(distList, armor)
-          if (armorPercentile !== 0) {
-            armor.Dists[distList.join('')] = armorPercentile
-            if (armorPercentile > highestArmorDistPercentile[1]) {
-              highestArmorDistPercentile = [distList.join(''), armorPercentile]
+        statClassDists.forEach(distArray => {
+          let [distList, distClasses] = distArray
+          if (distClasses.includes(armor.Equippable)) {
+            let armorPercentile = getDistPercentile(distList, armor)
+            if (armorPercentile !== 0) {
+              armor.Dists[distList.join('')] = armorPercentile
+              if (armorPercentile > highestArmorDistPercentile[1]) {
+                highestArmorDistPercentile = [distList.join(''), armorPercentile]
+              }
             }
           }
         })
@@ -174,36 +179,27 @@ const hasMaxDist = newArmor => {
 const getDistPercentile = (distList, armor) => {
   let spikes = distList.length
   let armorStats = {}
-  let sum = 0
-  let percentile = 0
-  let value, nthLargest, nextNthLargest
+  let maxSpikes = 0
 
   Object.entries(fieldMap).forEach(([name, longName]) => {
-    armorStats[name] = parseInt(armor[longName])
+    let stat = parseInt(armor[longName])
+    maxSpikes = stat >= 6 ? maxSpikes + 1 : maxSpikes
+    armorStats[name] = stat
   })
-  nthLargest = Object.values(armorStats).sort((a, b) => b - a)[spikes]
 
-  distList.forEach(field => {
-    if (armorStats[field] <= nthLargest) {
+  if (spikes > maxSpikes) {
+    return 0
+  }
+
+  for (const field of distList) {
+    if (armorStats[field] < 6) {
       return 0
     }
-    // console.log(field, armorStats[field])
-    sum = sum + armorStats[field]
-  })
-  value = sum / spikes
+  }
 
-  // console.log(distList, nthLargest, armorStats, value)
+  let statSum = distList.reduce((sum, field) => sum + armorStats[field], 0)
 
-  percentile = matchPercentileTable(value, spikes)
-
-  // if (spikes !== 6) {
-  //   nextNthLargest = Object.values(armorStats).sort((a, b) => b - a)[spikes + 1]
-  //   if (nextNthLargest >= Math.floor(value / (1 + (1 / spikes)))) {
-  //     return 0
-  //   }
-  // }
-
-  return percentile
+  return matchPercentileTable(statSum / spikes, spikes)
 }
 
 const matchPercentileTable = (value, spikes) => {
