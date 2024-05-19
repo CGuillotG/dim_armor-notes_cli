@@ -120,7 +120,6 @@ export const generateNotes2 = async (originPath, destinationPath) => {
       return reduceNewNotes(newArmorMax)
     })
     .then(reducedNewArmor => {
-      // console.log(reducedNewArmor[0])
       saveJsonToCsv(reducedNewArmor, destinationPath)
     })
     .catch(err => {
@@ -174,10 +173,8 @@ const hasMaxDist = newArmor => {
 // }
 
 const generateNewArmor2 = path => {
-  // ;[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].forEach(num => console.log(num,' - ',rankToFibo(num)))
   return getArmor(path).then(originalArmor => {
     const getDistScore = (fields, distStats, armor) => {
-      // if (armor['Seasonal Mod'] === 'artifice') {console.log('Artifice!!',armor)}
       let distScore = 0
       fields.forEach(field => {
         if (distStats[field] === 2) {

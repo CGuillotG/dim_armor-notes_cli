@@ -73,7 +73,6 @@ export const generateNotes3 = async (originPath, destinationPath) => {
   console.log('Generating Notes for Version 3...')
   generateNewArmor3(originPath)
     .then(newArmor => {
-      // console.log(newArmor)
       return hasMaxDist(newArmor)
     })
     .then(newArmorMax => {
@@ -81,7 +80,6 @@ export const generateNotes3 = async (originPath, destinationPath) => {
       return reduceNewNotes(newArmorMax)
     })
     .then(reducedNewArmor => {
-      // console.log({ResRecDisInt: maxDists['Titan']['Chest Armor']['ResRecDisInt']})
       saveJsonToCsv(reducedNewArmor, destinationPath)
     })
     .catch(err => {
