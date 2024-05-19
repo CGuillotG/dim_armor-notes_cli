@@ -4,7 +4,7 @@ import csvToJson from 'csvtojson'
 
 export const reduceNewNotes = newArmor => {
   return [
-    ...newArmor.map(armor => {
+    ...newArmor.filter(armor => !armor.isManualInput).map(armor => {
       return { Hash: armor.Hash, Id: armor.Id, Tag: armor.Tag, Notes: armor['New Notes'] }
     })
   ]

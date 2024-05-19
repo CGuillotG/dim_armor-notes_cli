@@ -1,5 +1,5 @@
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from './utilities.js'
-import { oldNotes, guardians, slots, fieldMap } from './enums.js'
+import { oldNotes, guardians, slots, fieldMap, extraArmor } from './enums.js'
 import { twoStats, threeStats, fourStats, fiveStats } from './percentileTables.js'
 
 const statClassDists = [
@@ -89,6 +89,11 @@ export const generateNotes3 = async (originPath, destinationPath) => {
 
 const generateNewArmor3 = path => {
   return getArmor(path).then(originalArmor => {
+
+    extraArmor.forEach(armor => {
+      originalArmor.push(armor)
+    })
+
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')
 
