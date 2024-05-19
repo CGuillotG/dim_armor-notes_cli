@@ -11,9 +11,15 @@ export const reduceNewNotes = newArmor => {
 }
 
 export const printDifferences = newArmor => {
+  const classInitial = {
+    'Titan': 'T',
+    'Warlock': 'W',
+    'Hunter': 'H'
+  }
+
   let singleLineArray = newArmor
     .filter(na => { return na['Notes'] !== na['New Notes'] })
-    .map(({ Name, Tier, Notes, 'New Notes': NewNotes }) => ({ No: 0, Name, Tier, Notes, NewNotes }))
+    .map(({ Name, Equippable, Tier, Notes, 'New Notes': NewNotes }) => ({ No: 0, Name, Cl: classInitial[Equippable], Tier, Notes, NewNotes }))
   let multiLineArray = []
 
   singleLineArray.forEach((elem, index) => {
