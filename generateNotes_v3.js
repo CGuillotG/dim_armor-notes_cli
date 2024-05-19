@@ -178,6 +178,7 @@ const getDistPercentile = (distList, armor) => {
   let spikes = distList.length
   let armorStats = {}
   let maxSpikes = 0
+  let isArtifice = armor['Seasonal Mod'] === 'artifice' ? true : false
 
   Object.entries(fieldMap).forEach(([name, longName]) => {
     let stat = parseInt(armor[longName])
@@ -196,6 +197,10 @@ const getDistPercentile = (distList, armor) => {
   }
 
   let statSum = distList.reduce((sum, field) => sum + armorStats[field], 0)
+
+  if (isArtifice) {
+    statSum += 3
+  }
 
   return matchPercentileTable(statSum / spikes, spikes)
 }
