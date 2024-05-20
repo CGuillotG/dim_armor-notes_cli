@@ -231,4 +231,4 @@ const fiveStats = [
 //   { percentile: 1, value: 11.16 }
 // ];
 
-export { totalStat, singleStat, twoStats, threeStats, fourStats, fiveStats }
+export { totalStat, twoStats, threeStats, fourStats, fiveStats }

@@ -1,6 +1,6 @@
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from './utilities.js'
 import { oldNotes, guardians, slots, fieldMap, extraArmor } from './enums.js'
-import { twoStats, threeStats, fourStats, fiveStats } from './percentileTables.js'
+import { twoStats, threeStats, fourStats, fiveStats, totalStat } from './percentileTables.js'
 
 const statClassDists = [
   [['Mob', 'Dis'], ['Hunter']],
@@ -50,22 +50,33 @@ const statClassDists = [
   [['Mob', 'Res', 'Dis', 'Int', 'Str'], ['Hunter']],
   [['Mob', 'Res', 'Rec', 'Int', 'Str'], []],
   [['Mob', 'Res', 'Rec', 'Dis', 'Str'], []],
-  [['Mob', 'Res', 'Rec', 'Dis', 'Int'], []]
+  [['Mob', 'Res', 'Rec', 'Dis', 'Int'], []],
 ]
 
+const totalStatClasses = [['Total'], ['Titan']]
+
 const maxDists = {} //Populate initial maxDistCombos
+const maxTotal = {}
 for (let guardian of guardians) {
   //maxDists[guardian][slot][distCombo]
   let distCombos = {}
+  let totalCombo = {}
   statClassDists.forEach(distArray => {
     let [distList, distClasses] = distArray
-    if (distClasses.includes(guardian)) {
+    if (distClasses.includes(guardian)) { 
       distCombos[distList.join('')] = -Infinity
     }
   })
+  if (totalStatClasses[1].includes(guardian)) {
+    totalCombo[totalStatClasses[0]] = -Infinity
+    maxTotal[guardian] = {}
+  }
   maxDists[guardian] = {}
   for (let slot of slots) {
     maxDists[guardian][slot] = { ...distCombos }
+    if (totalStatClasses[1].includes(guardian)) {
+      maxTotal[guardian][slot] = { ...totalCombo }
+    }
   }
 }
 
@@ -90,9 +101,10 @@ export const generateNotes3 = async (originPath, destinationPath) => {
 const generateNewArmor3 = path => {
   return getArmor(path).then(originalArmor => {
 
-    extraArmor.forEach(armor => {
-      originalArmor.push(armor)
-    })
+    //Add extra armor to the list
+    // extraArmor.forEach(armor => {
+    //   originalArmor.push(armor)
+    // })
 
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')
@@ -102,6 +114,12 @@ const generateNewArmor3 = path => {
       if (armor.Type === 'Festival Mask') {
         armor.Type = 'Helmet'
         armor.isFestivalMask = true //To exclude from Max checking
+      }
+      //Add Artifice modifier and +3 to 'Total (Base)'
+      armor['Total (Base)'] = parseInt(armor['Total (Base)'])
+      if (armor['Seasonal Mod'] === 'artifice') {
+        armor.isArtifice = true
+        armor['Total (Base)'] = armor['Total (Base)'] + 3
       }
 
       let textNotes = []
@@ -132,6 +150,10 @@ const generateNewArmor3 = path => {
             maxDists[armor.Equippable][armor.Type][armorDist] = Math.max(maxDists[armor.Equippable][armor.Type][armorDist], armor.Dists[armorDist])
           }
         }
+        //Register highest Total values per class and slot
+        if (totalStatClasses[1].includes(armor.Equippable) && armor.Tier !== 'Exotic' && !armor.isFestivalMask) {
+          maxTotal[armor.Equippable][armor.Type]['Total'] = Math.max(maxTotal[armor.Equippable][armor.Type]['Total'], armor['Total (Base)'])
+        }
 
         if (highestArmorDistPercentile[1] <= 0) {
           armor.Dists = {}
@@ -144,7 +166,7 @@ const generateNewArmor3 = path => {
 
       //Tag Item not falling on any category
       if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
-        // textNotes.push('MissingNo.')
+        textNotes.push('MissingNo.')
       }
 
       armor['New Notes'] = textNotes
@@ -161,9 +183,18 @@ const hasMaxDist = newArmor => {
         if (armor.Dists[dist] >= maxDists[armor.Equippable][armor.Type][dist]) {
           if (armor['New Notes'].length === 2) {
             armor['New Notes'].push('-')
+            armor.hasMax = true
           }
           armor['New Notes'].push(`${dist}_Max`)
         }
+      }
+    }
+    if (!armor.hasMax && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+      if (
+        totalStatClasses[1].includes(armor.Equippable) &&
+        armor['Total (Base)'] >= maxTotal[armor.Equippable][armor.Type]['Total']
+      ) {
+        armor['New Notes'].push('Total_Max')
       }
     }
 
@@ -196,7 +227,7 @@ const getDistPercentile = (distList, armor) => {
   }
 
   for (const field of distList) {
-    if (armorStats[field] < 6) {
+    if (field !== 'Total' && armorStats[field] < 6) {
       return 0
     }
   }
@@ -224,6 +255,9 @@ const matchPercentileTable = (value, spikes) => {
       break
     case 5:
       percentileTables = fiveStats
+      break
+    case 1:
+      percentileTables = totalStat
       break
     default:
       console.error('Invalid spikes value')
