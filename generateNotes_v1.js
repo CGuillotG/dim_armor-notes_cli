@@ -40,7 +40,7 @@ const hasMaxStat = newArmor => {
         }
       }
     })
-    armor['New Notes'] = armor['New Notes'].toString().replace(/,/g, '  ')
+    armor['New Notes'] = armor['New Notes'].toString().replace(/,/g, ' ')
   })
   return newArmor
 }
@@ -166,7 +166,7 @@ const generateNewArmor = path => {
           textNotes.push('MissingNo.')
         }
 
-        armor['New Notes'] = textNotes.toString().replace(/,/g, '  ')
+        armor['New Notes'] = textNotes.toString().replace(/,/g, ' ')
         armor.Id = armor.Id.replace(/"""/g, '"')
         return armor
       })

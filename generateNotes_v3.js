@@ -205,7 +205,7 @@ const hasMaxDist = newArmor => {
       }
     })
 
-    armor['New Notes'] = armor['New Notes'].toString().replace(/,/g, '  ')
+    armor['New Notes'] = armor['New Notes'].toString().replace(/,/g, ' ')
   })
   return newArmor
 }
