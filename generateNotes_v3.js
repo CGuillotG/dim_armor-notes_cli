@@ -102,9 +102,9 @@ const generateNewArmor3 = path => {
   return getArmor(path).then(originalArmor => {
 
     //Add extra armor to the list
-    // extraArmor.forEach(armor => {
-    //   originalArmor.push(armor)
-    // })
+    extraArmor.forEach(armor => {
+      originalArmor.push(armor)
+    })
 
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')
