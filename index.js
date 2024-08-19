@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 import { generateNotes } from './generateNotes_v1.js'
 import { generateNotes2 } from './generateNotes_v2.js'
 import { generateNotes3 } from './generateNotes_v3.js'
@@ -25,11 +26,9 @@ const argv = yargs
   .alias('help', 'h')
   .alias('version', 'v').argv
 
-const origin = argv.origin || 'destinyArmor'
-const destination = argv.destination || 'destinyArmorNotes'
-const method = argv.method || 1
-
-console.log('Method ' + method)
+const origin = argv.origin || 'destiny-armor'
+const destination = argv.destination || 'destiny-armor-notes'
+const method = argv.method || 3
 
 switch (method) {
   case 3:
