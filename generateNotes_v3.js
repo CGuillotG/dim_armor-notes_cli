@@ -118,7 +118,6 @@ const generateNewArmor3 = path => {
       //Add Artifice modifier and +3 to 'Total (Base)'
       armor['Total (Base)'] = parseInt(armor['Total (Base)'])
       if (armor['Seasonal Mod'] === 'artifice') {
-        armor.isArtifice = true
         armor['Total (Base)'] = armor['Total (Base)'] + 3
       }
 
@@ -214,7 +213,6 @@ const getDistPercentile = (distList, armor) => {
   let spikes = distList.length
   let armorStats = {}
   let maxSpikes = 0
-  let isArtifice = armor['Seasonal Mod'] === 'artifice' ? true : false
 
   Object.entries(fieldMap).forEach(([name, longName]) => {
     let stat = parseInt(armor[longName])
@@ -234,7 +232,7 @@ const getDistPercentile = (distList, armor) => {
 
   let statSum = distList.reduce((sum, field) => sum + armorStats[field], 0)
 
-  if (isArtifice) {
+  if (armor['Seasonal Mod'] === 'artifice') {
     statSum += 3
   }
 
