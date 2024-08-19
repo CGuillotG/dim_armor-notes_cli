@@ -166,7 +166,7 @@ const generateNewArmor3 = path => {
 
       //Tag Item not falling on any category
       if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
-        textNotes.push('MissingNo.')
+        textNotes.push('JUNK')
       }
 
       armor['New Notes'] = textNotes
