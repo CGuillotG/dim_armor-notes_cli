@@ -63,7 +63,7 @@ for (let guardian of guardians) {
   let totalCombo = {}
   statClassDists.forEach(distArray => {
     let [distList, distClasses] = distArray
-    if (distClasses.includes(guardian)) { 
+    if (distClasses.includes(guardian)) {
       distCombos[distList.join('')] = -Infinity
     }
   })
@@ -201,6 +201,8 @@ const hasMaxDist = newArmor => {
     oldNotes.forEach(oldNote => {
       if (armor.Notes.includes(oldNote)) {
         armor['New Notes'].push(oldNote)
+      } else if (oldNote === "IB" && armor['Perks 0'] === "Iron Lord's Pride*") {
+        armor['New Notes'].push(oldNote)
       }
     })
 
@@ -234,6 +236,9 @@ const getDistPercentile = (distList, armor) => {
 
   if (armor['Seasonal Mod'] === 'artifice') {
     statSum += 3
+  }
+  if (armor['Perks 0'] === "Iron Lord's Pride*") {
+    statSum += 1.5
   }
 
   return matchPercentileTable(statSum / spikes, spikes)
