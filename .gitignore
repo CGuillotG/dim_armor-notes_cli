@@ -6,3 +6,6 @@ extraArmorData.js
 
 # CSV Data
 *.csv
+
+# WIP Files
+*WIP*
