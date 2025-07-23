@@ -3,18 +3,18 @@ import { oldNotes, guardians, slots, fieldMap, extraArmor } from './enums.js'
 import { twoStats, threeStats, fourStats, fiveStats, totalStat } from './percentileTables.js'
 
 const statClassDists = [
-  [['Mob', 'Dis'], ['Hunter']],
-  [['Mob', 'Int'], ['Hunter']],
-  [['Mob', 'Str'], ['Hunter']],
+  [['Mob', 'Dis'], ['Hunter', 'Titan' ,'Warlock']],
+  [['Mob', 'Int'], ['Hunter', 'Titan' ,'Warlock']],
+  [['Mob', 'Str'], ['Hunter', 'Titan' ,'Warlock']],
   [['Res', 'Dis'], ['Titan', 'Warlock', 'Hunter']],
   [['Res', 'Int'], ['Titan', 'Warlock', 'Hunter']],
   [['Res', 'Str'], ['Titan', 'Warlock', 'Hunter']],
   [['Rec', 'Dis'], ['Titan', 'Warlock']],
   [['Rec', 'Int'], ['Titan', 'Warlock']],
   [['Rec', 'Str'], ['Titan', 'Warlock']],
-  [['Mob', 'Dis', 'Int'], ['Hunter']],
-  [['Mob', 'Dis', 'Str'], ['Hunter']],
-  [['Mob', 'Int', 'Str'], ['Hunter']],
+  [['Mob', 'Dis', 'Int'], ['Titan', 'Warlock', 'Hunter']],
+  [['Mob', 'Dis', 'Str'], ['Titan', 'Warlock', 'Hunter']],
+  [['Mob', 'Int', 'Str'], ['Titan', 'Warlock', 'Hunter']],
   [['Res', 'Dis', 'Int'], ['Titan', 'Warlock', 'Hunter']],
   [['Res', 'Dis', 'Str'], ['Titan', 'Warlock', 'Hunter']],
   [['Res', 'Int', 'Str'], ['Titan', 'Warlock', 'Hunter']],
@@ -156,10 +156,8 @@ const generateNewArmor3 = path => {
 
         if (highestArmorDistPercentile[1] <= 0) {
           armor.Dists = {}
-        } else if (highestArmorDistPercentile[1] === 1) {
-          textNotes.push('1.0', `.${highestArmorDistPercentile[0]}.`)
         } else {
-          textNotes.push(highestArmorDistPercentile[1], `.${highestArmorDistPercentile[0]}.`)
+          textNotes.push(highestArmorDistPercentile[1].toFixed(7), `.${highestArmorDistPercentile[0]}.`)
         }
       }
 
@@ -201,7 +199,10 @@ const hasMaxDist = newArmor => {
     oldNotes.forEach(oldNote => {
       if (armor.Notes.includes(oldNote)) {
         armor['New Notes'].push(oldNote)
-      } else if (oldNote === "IB" && armor['Perks 0'] === "Iron Lord's Pride*") {
+      } else if (
+        (oldNote === "IB" && armor['Perks 0'] === "Iron Lord's Pride*") ||
+        (oldNote === "Artifice" && armor['Seasonal Mod'] === "artifice" && armor.Tier !== 'Exotic')
+      ) {
         armor['New Notes'].push(oldNote)
       }
     })
