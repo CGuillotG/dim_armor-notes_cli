@@ -1,2 +1,5 @@
 *.vscode
 *node_modules
+
+# Extra Armor Data
+extraArmorData.js
