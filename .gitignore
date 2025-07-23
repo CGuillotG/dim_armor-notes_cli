@@ -3,3 +3,6 @@
 
 # Extra Armor Data
 extraArmorData.js
+
+# CSV Data
+*.csv

@@ -4,22 +4,52 @@ import csvToJson from 'csvtojson'
 
 export const reduceNewNotes = newArmor => {
   return [
-    ...newArmor.filter(armor => !armor.isManualInput).map(armor => {
-      return { Hash: armor.Hash, Id: armor.Id, Tag: armor.Tag, Notes: armor['New Notes'] }
-    })
+    ...newArmor
+      .filter(armor => !armor.isManualInput)
+      .map(armor => {
+        return { Hash: armor.Hash, Id: armor.Id, Tag: armor.Tag, Notes: armor['New Notes'] }
+      })
   ]
 }
 
 export const printDifferences = newArmor => {
-  const classInitial = {
-    'Titan': 'T',
-    'Warlock': 'W',
-    'Hunter': 'H'
+  const initials = {
+    'Titan': 'Ｔ',
+    'Warlock': 'Ｗ',
+    'Hunter': 'Ｈ',
+    'Legendary': '🟣',
+    'Exotic': '🟡',
+    'Helmet': '🧢',
+    'Gauntlets': '🧤',
+    'Chest Armor': '👕',
+    'Leg Armor': '🩳',
+    'Warlock Bond': '🔮',
+    'Titan Mark': '🔮',
+    'Hunter Cloak': '🔮'
   }
+  const customOrder = ['Helmet', 'Gauntlets', 'Chest Armor', 'Leg Armor']
 
   let singleLineArray = newArmor
-    .filter(na => { return na['Notes'] !== na['New Notes'] })
-    .map(({ Name, Equippable, Tier, Notes, 'New Notes': NewNotes }) => ({ No: 0, Name, Cl: classInitial[Equippable], Tier, Notes, NewNotes }))
+    .filter(na => {
+      return na['Notes'] !== na['New Notes']
+    })
+    .sort((a, b) => {
+      if (a.Equippable > b.Equippable) {
+        return -1
+      } else if (a.Equippable < b.Equippable) {
+        return 1
+      }
+      return customOrder.indexOf(a.Type) - customOrder.indexOf(b.Type)
+    })
+    .map(({ Name, Equippable, Tier, Type, Notes, 'New Notes': NewNotes }) => ({
+      No: 0,
+      Tier: initials[Tier],
+      Name,
+      'Cl.': initials[Equippable],
+      'Sl.': initials[Type],
+      Notes,
+      NewNotes
+    }))
   let multiLineArray = []
 
   singleLineArray.forEach((elem, index) => {
@@ -29,9 +59,9 @@ export const printDifferences = newArmor => {
     elem.Notes = notes[0]
     elem.NewNotes = newNotes[0]
     // Can't remember the purpose of this, so I'm commenting it out and will delete it later
-      // if (newNotes[0].length !== 4) {
-      //   elem.NNLength = newNotes[0].length
-      // }
+    // if (newNotes[0].length !== 4) {
+    //   elem.NNLength = newNotes[0].length
+    // }
     if (index !== 0) {
       multiLineArray.push({})
     }
