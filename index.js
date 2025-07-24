@@ -19,7 +19,10 @@ const argv = yargs
   })
   .option('method', {
     alias: 'm',
-    description: 'Use armor notes generation method from version 1, 2, or 3',
+    description: `Armor evaluation method:
+    1.1 - Basic rule-based system (legacy)
+    1.2 - Distribution scoring (legacy) 
+    2.0 - Percentile analysis (recommended, default)`,
     type: 'number'
   })
   .help()

@@ -1,3 +1,14 @@
+/**
+ * generateNotes_2_0.js - Percentile Analysis System (Armor 2.0)
+ * 
+ * Most sophisticated approach using statistical percentiles from comprehensive lookup tables.
+ * Handles 2-5 stat combinations with proper Artifice (+3) and Iron Banner (+1.5) modifiers.
+ * Provides precise percentile rankings and supports all classes with mobility builds.
+ * This is the recommended method and current default.
+ * 
+ * Quality: Excellent ⭐⭐⭐⭐⭐
+ */
+
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
 import { oldNotes, guardians, slots, fieldMap, extraArmor } from '../core/enums.js'
 import { twoStats, threeStats, fourStats, fiveStats, totalStat } from '../core/percentileTables.js'

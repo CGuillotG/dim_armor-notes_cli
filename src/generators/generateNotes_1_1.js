@@ -1,3 +1,13 @@
+/**
+ * generateNotes_1_1.js - Basic Rule-Based System (Armor 2.0)
+ * 
+ * Original approach using hardcoded tier thresholds based on highest individual stats.
+ * Simple GOD/GREAT/GOOD/MAYBE/SHARD classification with basic rules.
+ * Legacy method - functional but less sophisticated than newer approaches.
+ * 
+ * Quality: Basic ⭐⭐
+ */
+
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
 import { guardians, fields, totalField, slots, oldNotes } from '../core/enums.js'
 

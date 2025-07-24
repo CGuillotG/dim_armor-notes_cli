@@ -1,3 +1,13 @@
+/**
+ * generateNotes_1_2.js - Distribution Scoring System (Armor 2.0)
+ * 
+ * Advanced approach that scores armor against specific stat distributions for different builds.
+ * Uses Fibonacci-weighted rankings and complex scoring algorithms per class.
+ * Good for build-focused evaluation but complex to maintain.
+ * 
+ * Quality: Good ⭐⭐⭐
+ */
+
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from "../core/utilities.js"
 import { oldNotes, guardians, slots, fieldMap, topFields, bottomFields } from "../core/enums.js"
 
