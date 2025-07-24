@@ -1,5 +1,5 @@
-import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from './utilities.js'
-import { guardians, fields, totalField, slots, oldNotes } from './enums.js'
+import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
+import { guardians, fields, totalField, slots, oldNotes } from '../core/enums.js'
 
 
 let maxStats = {}

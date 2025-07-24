@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { generateNotes } from './generateNotes_v1.js'
-import { generateNotes2 } from './generateNotes_v2.js'
-import { generateNotes3 } from './generateNotes_v3.js'
+import { generateNotes } from './src/generators/generateNotes_v1.js'
+import { generateNotes2 } from './src/generators/generateNotes_v2.js'
+import { generateNotes3 } from './src/generators/generateNotes_v3.js'
 import yargs from 'yargs'
 
 //Yargs setup
@@ -26,8 +26,8 @@ const argv = yargs
   .alias('help', 'h')
   .alias('version', 'v').argv
 
-const origin = argv.origin || 'destiny-armor'
-const destination = argv.destination || 'destiny-armor-notes'
+const origin = argv.origin || 'storage/destiny-armor'
+const destination = argv.destination || 'storage/destiny-armor-notes'
 const method = argv.method || 3
 
 switch (method) {

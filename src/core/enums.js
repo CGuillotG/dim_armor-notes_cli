@@ -18,7 +18,7 @@ const bottomFields = ['Dis', 'Int', 'Str']
 // Import extra armor data from extraArmorData.js
 let extraArmorData = []
 try {
-  const { extraArmorData: importedData } = await import('./extraArmorData.js')
+  const { extraArmorData: importedData } = await import('../../extraArmorData.js')
   extraArmorData = importedData
 } catch (error) {
   console.log('No extraArmorData.js found or error importing, using empty array')

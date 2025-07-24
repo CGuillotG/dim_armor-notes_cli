@@ -1,5 +1,5 @@
-import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from "./utilities.js"
-import { oldNotes, guardians, slots, fieldMap, topFields, bottomFields } from "./enums.js"
+import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from "../core/utilities.js"
+import { oldNotes, guardians, slots, fieldMap, topFields, bottomFields } from "../core/enums.js"
 
 const tiers = ['SS', 'S', 'A', 'B', 'C', 'D', 'E', 'F']
 const intervals = [0, -3, -8, -13, -18, -23, -38]

@@ -1,6 +1,6 @@
-import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from './utilities.js'
-import { oldNotes, guardians, slots, fieldMap, extraArmor } from './enums.js'
-import { twoStats, threeStats, fourStats, fiveStats, totalStat } from './percentileTables.js'
+import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
+import { oldNotes, guardians, slots, fieldMap, extraArmor } from '../core/enums.js'
+import { twoStats, threeStats, fourStats, fiveStats, totalStat } from '../core/percentileTables.js'
 
 const statClassDists = [
   [['Mob', 'Dis'], ['Hunter', 'Titan' ,'Warlock']],
