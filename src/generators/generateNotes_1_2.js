@@ -107,7 +107,7 @@ for (let guardian of guardians) { //Populate initial maxDistCombos
   }
 }
 
-export const generateNotes2 = async (originPath, destinationPath) => {
+export const generateNotes_1_2 = async (originPath, destinationPath) => {
   generateNewArmor2(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)

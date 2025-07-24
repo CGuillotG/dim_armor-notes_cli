@@ -13,7 +13,7 @@ for (let guardian of guardians) {
   }
 }
 
-export const generateNotes = async (originPath, destinationPath) => {
+export const generateNotes_1_1 = async (originPath, destinationPath) => {
   generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxStat(newArmor)

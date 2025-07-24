@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { generateNotes } from './src/generators/generateNotes_v1.js'
-import { generateNotes2 } from './src/generators/generateNotes_v2.js'
-import { generateNotes3 } from './src/generators/generateNotes_v3.js'
+import { generateNotes_1_1 } from './src/generators/generateNotes_1_1.js'
+import { generateNotes_1_2 } from './src/generators/generateNotes_1_2.js'
+import { generateNotes_2_0 } from './src/generators/generateNotes_2_0.js'
 import yargs from 'yargs'
 
 //Yargs setup
@@ -28,17 +28,17 @@ const argv = yargs
 
 const origin = argv.origin || 'storage/destiny-armor'
 const destination = argv.destination || 'storage/destiny-armor-notes'
-const method = argv.method || 3
+const method = argv.method || 2.0
 
 switch (method) {
-  case 3:
-    generateNotes3(origin + '.csv', destination + '.csv')
+  case 1.1:
+    generateNotes_1_1(origin + '.csv', destination + '.csv')
+    break
+  case 1.2:
+    generateNotes_1_2(origin + '.csv', destination + '.csv')
     break
   case 2:
-    generateNotes2(origin + '.csv', destination + '.csv')
-    break
-  case 1:
   default:
-    generateNotes(origin + '.csv', destination + '.csv')
+    generateNotes_2_0(origin + '.csv', destination + '.csv')
     break
 }

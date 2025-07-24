@@ -80,7 +80,7 @@ for (let guardian of guardians) {
   }
 }
 
-export const generateNotes3 = async (originPath, destinationPath) => {
+export const generateNotes_2_0 = async (originPath, destinationPath) => {
   console.log('Generating Notes for Version 3...')
   generateNewArmor3(originPath)
     .then(newArmor => {
