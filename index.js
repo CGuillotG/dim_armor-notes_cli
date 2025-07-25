@@ -3,6 +3,7 @@
 import { generateNotes_1_1 } from './src/generators/generateNotes_1_1.js'
 import { generateNotes_1_2 } from './src/generators/generateNotes_1_2.js'
 import { generateNotes_2_0 } from './src/generators/generateNotes_2_0.js'
+import { generateNotes_2_1 } from './src/generators/generateNotes_2_1.js'
 import yargs from 'yargs'
 
 //Yargs setup
@@ -22,7 +23,8 @@ const argv = yargs
     description: `Armor evaluation method:
     1.1 - Basic rule-based system (legacy)
     1.2 - Distribution scoring (legacy) 
-    2.0 - Percentile analysis (recommended, default)`,
+    2.0 - Percentile analysis (recommended, default)
+    2.1 - Armor 2.0 Percentile analysis on 3.0 stats`,
     type: 'number'
   })
   .help()
@@ -41,7 +43,12 @@ switch (method) {
     generateNotes_1_2(origin + '.csv', destination + '.csv')
     break
   case 2:
-  default:
     generateNotes_2_0(origin + '.csv', destination + '.csv')
+    break
+    case 2.1:
+      generateNotes_2_1(origin + '.csv', destination + '.csv')
+      break
+  default:
+    console.error('Invalid method')
     break
 }
