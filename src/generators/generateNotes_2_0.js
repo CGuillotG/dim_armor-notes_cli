@@ -93,7 +93,7 @@ for (let guardian of guardians) {
 
 export const generateNotes_2_0 = async (originPath, destinationPath) => {
   console.log('Generating Notes for Version 3...')
-  generateNewArmor3(originPath)
+  generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)
     })
@@ -109,13 +109,8 @@ export const generateNotes_2_0 = async (originPath, destinationPath) => {
     })
 }
 
-const generateNewArmor3 = path => {
+const generateNewArmor = path => {
   return getArmor(path).then(originalArmor => {
-
-    //Add extra armor to the list
-    extraArmor.forEach(armor => {
-      originalArmor.push(armor)
-    })
 
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')

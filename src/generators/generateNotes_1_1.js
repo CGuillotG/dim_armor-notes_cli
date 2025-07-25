@@ -9,7 +9,7 @@
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
-import { guardians, fields, totalField, slots, oldNotes } from '../core/enums.js'
+import { guardians, a2_fields, totalField, slots, oldNotes } from '../core/enums.js'
 
 
 let maxStats = {}
@@ -17,7 +17,7 @@ for (let guardian of guardians) {
   maxStats[guardian] = {}
   for (let slot of slots) {
     maxStats[guardian][slot] = {}
-    for (let field of fields.concat(totalField)) {
+    for (let field of a2_fields.concat(totalField)) {
       maxStats[guardian][slot][field] = 0
     }
   }
@@ -42,7 +42,7 @@ export const generateNotes_1_1 = async (originPath, destinationPath) => {
 
 const hasMaxStat = newArmor => {
   newArmor.forEach(armor => {
-    ;[...fields, totalField].forEach(field => {
+    ;[...a2_fields, totalField].forEach(field => {
       if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' /*&& armor.Type !== 'Mask'*/) {
         if (armor[field] >= maxStats[armor.Equippable][armor.Type][field]) {
           armor['New Notes'] += '  MAX'
@@ -109,7 +109,7 @@ const generateNewArmor = path => {
         }
 
         //Stats Analysis
-        fields.forEach(field => {
+        a2_fields.forEach(field => {
           if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak' && armor.Tier !== 'Exotic') {
             maxStats[armor.Equippable][armor.Type][field] = Math.max(maxStats[armor.Equippable][armor.Type][field], armor[field])
           }

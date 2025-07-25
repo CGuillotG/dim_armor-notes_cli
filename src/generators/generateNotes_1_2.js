@@ -9,7 +9,7 @@
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from "../core/utilities.js"
-import { oldNotes, guardians, slots, fieldMap, topFields, bottomFields } from "../core/enums.js"
+import { oldNotes, guardians, slots, fieldMap, a2_topFields, a2_bottomFields } from "../core/enums.js"
 
 const tiers = ['SS', 'S', 'A', 'B', 'C', 'D', 'E', 'F']
 const intervals = [0, -3, -8, -13, -18, -23, -38]
@@ -118,7 +118,7 @@ for (let guardian of guardians) { //Populate initial maxDistCombos
 }
 
 export const generateNotes_1_2 = async (originPath, destinationPath) => {
-  generateNewArmor2(originPath)
+  generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)
     })
@@ -182,7 +182,7 @@ const hasMaxDist = newArmor => {
 // console.table(printableMaxDistCombos)
 // }
 
-const generateNewArmor2 = path => {
+const generateNewArmor = path => {
   return getArmor(path).then(originalArmor => {
     const getDistScore = (fields, distStats, armor) => {
       let distScore = 0
@@ -221,7 +221,7 @@ const generateNewArmor2 = path => {
           //Iterate on Top Dists
           for (let topDist in distRank[armor.Equippable].top) {
             let topDistStats = topStatDists[topDist]
-            let armorTopScore = getDistScore(topFields, topDistStats, armor)
+            let armorTopScore = getDistScore(a2_topFields, topDistStats, armor)
             armor.TopDists[topDist] = armorTopScore
 
             if (armorTopScore > highestArmorTopDistScore[1]) { highestArmorTopDistScore = [topDist, armorTopScore] }
@@ -230,7 +230,7 @@ const generateNewArmor2 = path => {
           //Iterate on Bottom Dists
           for (let bottomDist in distRank[armor.Equippable].bottom) {
             let bottomDistStats = bottomStatDists[bottomDist]
-            let armorBottomScore = getDistScore(bottomFields, bottomDistStats, armor)
+            let armorBottomScore = getDistScore(a2_bottomFields, bottomDistStats, armor)
             armor.BottomDists[bottomDist] = armorBottomScore
 
             if (armorBottomScore > highestArmorBottomDistScore[1]) { highestArmorBottomDistScore = [bottomDist, armorBottomScore] }
@@ -254,7 +254,7 @@ const generateNewArmor2 = path => {
           if ('topExtra' in distRank[armor.Equippable]) {
             for (let topExtraDist in distRank[armor.Equippable].topExtra) {
               let topExtraDistStats = topStatDists[topExtraDist]
-              let armorTopExtraScore = getDistScore(topFields, topExtraDistStats, armor)
+              let armorTopExtraScore = getDistScore(a2_topFields, topExtraDistStats, armor)
               armor.TopDists[topExtraDist] = armorTopExtraScore
 
               if (armorTopExtraScore > highestArmorTopDistScore[1]) { highestArmorTopDistScore = [topExtraDist, armorTopExtraScore] }
@@ -272,7 +272,7 @@ const generateNewArmor2 = path => {
           if ('bottomExtra' in distRank[armor.Equippable]) {
             for (let bottomExtraDist in distRank[armor.Equippable].bottomExtra) {
               let bottomExtraDistStats = bottomStatDists[bottomExtraDist]
-              let armorBottomExtraScore = getDistScore(bottomFields, bottomExtraDistStats, armor)
+              let armorBottomExtraScore = getDistScore(a2_bottomFields, bottomExtraDistStats, armor)
               armor.BottomDists[bottomExtraDist] = armorBottomExtraScore
 
               if (armorBottomExtraScore > highestArmorBottomDistScore[1]) { highestArmorBottomDistScore = [bottomExtraDist, armorBottomExtraScore] }

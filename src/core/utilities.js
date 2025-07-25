@@ -19,6 +19,9 @@ export const printDifferences = newArmor => {
     'Hunter': 'Ｈ',
     'Legendary': '🟣',
     'Exotic': '🟡',
+    'Rare': '🔵',
+    'Uncommon': '🟢',
+    'Common': '⚪',
     'Helmet': '🧢',
     'Gauntlets': '🧤',
     'Chest Armor': '👕',
@@ -41,9 +44,9 @@ export const printDifferences = newArmor => {
       }
       return customOrder.indexOf(a.Type) - customOrder.indexOf(b.Type)
     })
-    .map(({ Name, Equippable, Tier, Type, Notes, 'New Notes': NewNotes }) => ({
+    .map(({ Name, Equippable, Tier, Rarity, Type, Notes, 'New Notes': NewNotes }) => ({
       No: 0,
-      Tier: initials[Tier],
+      Rar: initials[Rarity || Tier],
       Name,
       'Cl.': initials[Equippable],
       'Sl.': initials[Type],

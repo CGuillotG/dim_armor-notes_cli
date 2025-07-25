@@ -1,19 +1,32 @@
 const guardians = ['Titan', 'Warlock', 'Hunter']
-const fields = ['Mobility (Base)', 'Resilience (Base)', 'Recovery (Base)', 'Discipline (Base)', 'Intellect (Base)', 'Strength (Base)']
+const a2_fields = ['Mobility (Base)', 'Resilience (Base)', 'Recovery (Base)', 'Discipline (Base)', 'Intellect (Base)', 'Strength (Base)']
+const fields = ['Weapons (Base)', 'Health (Base)', 'Class (Base)', 'Grenade (Base)', 'Super (Base)', 'Melee (Base)']
 const totalField = 'Total (Base)'
 const slots = ['Helmet', 'Gauntlets', 'Chest Armor', 'Leg Armor']
 const oldNotes = ['AFK', 'TEMP', 'EXOTIC', 'IB', 'Artifice', 'Trials', 'LastWish']
 
 const fieldMap = {
+  // Armor 2.0
   'Mob': 'Mobility (Base)',
   'Res': 'Resilience (Base)',
   'Rec': 'Recovery (Base)',
   'Dis': 'Discipline (Base)',
   'Int': 'Intellect (Base)',
-  'Str': 'Strength (Base)'
+  'Str': 'Strength (Base)',
+  // Armor 3.0
+  'Wep': 'Weapons (Base)',
+  'Hel': 'Health (Base)',
+  'Cls': 'Class (Base)',
+  'Gre': 'Grenade (Base)',
+  'Sup': 'Super (Base)',
+  'Mel': 'Melee (Base)'
 }
-const topFields = ['Mob', 'Res', 'Rec']
-const bottomFields = ['Dis', 'Int', 'Str']
+
+const a2_topFields = ['Mob', 'Res', 'Rec']
+const a2_bottomFields = ['Dis', 'Int', 'Str']
+
+const topFields = ['Wep', 'Hea', 'Cls']
+const bottomFields = ['Gre', 'Sup', 'Mel']
 
 // Import extra armor data from extraArmorData.js
 let extraArmorData = []
@@ -31,7 +44,7 @@ const extraArmor = extraArmorData.map(data => {
   }
 
   // Detect tier and seasonal mod from name string
-  const tier = data[0].includes('EXOTIC') ? 'Exotic' : 'Legendary'
+  const rarity = data[0].includes('EXOTIC') ? 'Exotic' : 'Legendary'
   const seasonal = data[0].includes('(Artifice)') ? 'artifice' : ''
 
   return {
@@ -44,8 +57,15 @@ const extraArmor = extraArmorData.map(data => {
     'Discipline (Base)': data[6],
     'Intellect (Base)': data[7],
     'Strength (Base)': data[8],
+    'Weapons (Base)': data[3],
+    'Health (Base)': data[4],
+    'Class (Base)': data[5],
+    'Grenade (Base)': data[6],
+    'Super (Base)': data[7],
+    'Melee (Base)': data[8],
     'Total (Base)': data[9],
-    Tier: tier,
+    Rarity: rarity,
+    Tier: 0,
     'Seasonal Mod': seasonal,
     isManualInput: true,
     Id: '""',
@@ -53,4 +73,17 @@ const extraArmor = extraArmorData.map(data => {
   }
 })
 
-export { guardians, fields, totalField, slots, oldNotes, fieldMap, topFields, bottomFields, extraArmor }
+export { 
+  guardians, 
+  a2_fields,
+  fields, 
+  totalField, 
+  slots, 
+  oldNotes, 
+  fieldMap,
+  a2_topFields,
+  a2_bottomFields,
+  topFields, 
+  bottomFields,
+  extraArmor 
+}
