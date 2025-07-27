@@ -5,12 +5,13 @@
  * While the approach remains robust, the statClassDists are no longer as well tuned for class usefulness in 3.0, since stat importance has shifted.
  * The method analyzes new Armor 3.0 items using the Armor 2.0 system, but 3.0 stats behave differently—many pieces are spiky (high in a few stats) but have low totals, so the filtering is less effective for 3.0.
  * However, this is still very useful for determining if a new Armor 3.0 piece makes an old 2.0 piece redundant.
+ * Now includes non-exotic class items (Titan Mark, Warlock Bond, Hunter Cloak) which have stats in Armor 3.0.
  *
  * Quality: Very Good ⭐⭐⭐⭐
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
-import { oldNotes, guardians, slots, fieldMap, extraArmor } from '../core/enums.js'
+import { oldNotes, guardians, slots, classSlots, fieldMap, extraArmor } from '../core/enums.js'
 import { twoStats, threeStats, fourStats, fiveStats, totalStat } from '../core/percentileTables.js'
 
 const a2_statClassDists = [
@@ -107,6 +108,8 @@ const statClassDists = [...a2_statClassDists, ...a3_statClassDists]
 
 const totalStatClasses = [['Total'], ['Titan']]
 
+const allSlots = [...slots, ...classSlots]
+
 const maxDists = {} //Populate initial maxDistCombos
 const maxTotal = {}
 for (let guardian of guardians) {
@@ -124,7 +127,7 @@ for (let guardian of guardians) {
     maxTotal[guardian] = {}
   }
   maxDists[guardian] = {}
-  for (let slot of slots) {
+  for (let slot of allSlots) {
     maxDists[guardian][slot] = { ...distCombos }
     if (totalStatClasses[1].includes(guardian)) {
       maxTotal[guardian][slot] = { ...totalCombo }
@@ -175,7 +178,8 @@ const generateNewArmor = path => {
 
       let textNotes = []
 
-      if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+      // Skip analysis for exotic class items
+      if (!(armor.Type === 'Titan Mark' || armor.Type === 'Warlock Bond' || armor.Type === 'Hunter Cloak') || armor.Rarity !== 'Exotic') {
         let highestArmorDistPercentile = ['', -Infinity]
         armor.Dists = {}
 
@@ -214,7 +218,7 @@ const generateNewArmor = path => {
       }
 
       //Tag Item not falling on any category
-      if (!textNotes.length && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+      if (!textNotes.length && !((armor.Type === 'Titan Mark' || armor.Type === 'Warlock Bond' || armor.Type === 'Hunter Cloak') && armor.Rarity === 'Exotic')) {
         // textNotes.push('JUNK')
       }
 
@@ -227,8 +231,9 @@ const generateNewArmor = path => {
 
 const hasMaxDist = newArmor => {
   newArmor.forEach(armor => {
-    for (let dist in armor.Dists) {
-      if (armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
+    // Skip max dist checking for exotic class items
+    if (!(armor.Type === 'Titan Mark' || armor.Type === 'Warlock Bond' || armor.Type === 'Hunter Cloak') || armor.Rarity !== 'Exotic') {
+      for (let dist in armor.Dists) {
         if (armor.Dists[dist] >= maxDists[armor.Equippable][armor.Type][dist]) {
           if (armor['New Notes'].length === 2) {
             armor['New Notes'].push('-')
@@ -237,27 +242,34 @@ const hasMaxDist = newArmor => {
           armor['New Notes'].push(`${dist}_Max`)
         }
       }
-    }
-    if (!armor.hasMax && armor.Type !== 'Titan Mark' && armor.Type !== 'Warlock Bond' && armor.Type !== 'Hunter Cloak') {
-      if (
-        totalStatClasses[1].includes(armor.Equippable) &&
-        armor['Total (Base)'] >= maxTotal[armor.Equippable][armor.Type]['Total']
-      ) {
-        armor['New Notes'].push('Total_Max')
+      if (!armor.hasMax) {
+        if (
+          totalStatClasses[1].includes(armor.Equippable) &&
+          armor['Total (Base)'] >= maxTotal[armor.Equippable][armor.Type]['Total']
+        ) {
+          armor['New Notes'].push('Total_Max')
+        }
+      }
+    } else {
+      // For exotic class items, preserve all existing notes
+      if (armor.Notes && armor.Notes.trim() !== '') {
+        armor['New Notes'] = armor.Notes.split(' ').filter(note => note.trim() !== '')
       }
     }
 
-    //Add old notes exceptions back to new notes
-    oldNotes.forEach(oldNote => {
-      if (armor.Notes.includes(oldNote)) {
-        armor['New Notes'].push(oldNote)
-      } else if (
-        (oldNote === "IB" && armor['Perks 0'] === "Iron Lord's Pride*") ||
-        (oldNote === "Artifice" && armor['Seasonal Mod'] === "artifice" && armor.Rarity !== 'Exotic')
-      ) {
-        armor['New Notes'].push(oldNote)
-      }
-    })
+    //Add old notes exceptions back to new notes (for non-exotic class items)
+    if (!((armor.Type === 'Titan Mark' || armor.Type === 'Warlock Bond' || armor.Type === 'Hunter Cloak') && armor.Rarity === 'Exotic')) {
+      oldNotes.forEach(oldNote => {
+        if (armor.Notes.includes(oldNote)) {
+          armor['New Notes'].push(oldNote)
+        } else if (
+          (oldNote === "IB" && armor['Perks 0'] === "Iron Lord's Pride*") ||
+          (oldNote === "Artifice" && armor['Seasonal Mod'] === "artifice" && armor.Rarity !== 'Exotic')
+        ) {
+          armor['New Notes'].push(oldNote)
+        }
+      })
+    }
 
     armor['New Notes'] = armor['New Notes'].toString().replace(/,/g, ' ')
   })

@@ -3,6 +3,7 @@ const a2_fields = ['Mobility (Base)', 'Resilience (Base)', 'Recovery (Base)', 'D
 const fields = ['Weapons (Base)', 'Health (Base)', 'Class (Base)', 'Grenade (Base)', 'Super (Base)', 'Melee (Base)']
 const totalField = 'Total (Base)'
 const slots = ['Helmet', 'Gauntlets', 'Chest Armor', 'Leg Armor']
+const classSlots = ['Titan Mark', 'Warlock Bond', 'Hunter Cloak']
 const oldNotes = ['AFK', 'TEMP', 'EXOTIC', 'IB', 'Artifice', 'Trials', 'LastWish']
 
 const fieldMap = {
@@ -79,6 +80,7 @@ export {
   fields, 
   totalField, 
   slots, 
+  classSlots,
   oldNotes, 
   fieldMap,
   a2_topFields,
