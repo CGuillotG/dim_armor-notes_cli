@@ -33,7 +33,7 @@ const argv = yargs
 
 const origin = argv.origin || 'storage/destiny-armor'
 const destination = argv.destination || 'storage/destiny-armor-notes'
-const method = argv.method || 2.0
+const method = argv.method || 2.1
 
 switch (method) {
   case 1.1:
