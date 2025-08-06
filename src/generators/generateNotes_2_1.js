@@ -305,3 +305,26 @@ const matchPercentileTable = (value, spikes) => {
     }
   }
 }
+
+//DIM Queries
+/*
+  DIM FAV
+  -tag:favorite -tag:archive -tag:junk -(is:classitem is:exotic) ((is:titan (notes:0.9996 or notes:0.9997 or notes:0.9998 or notes:0.9999 or notes:1.0)) or (is:warlock (notes:0.9985 or notes:0.9986 or notes:0.9987 or notes:0.9988 or notes:0.9989 or notes:0.999 or notes:1.0)) or (is:hunter ((notes:0.99 -(notes:0.990 or notes:0.991)) or notes:1.0)))
+
+  DIM KEEP
+  -tag:keep -tag:archive -tag:junk notes:0.9 -((is:titan (notes:0.9996 or notes:0.9997 or notes:0.9998 or notes:0.9999 or notes:1.0)) or (is:warlock (notes:0.9985 or notes:0.9986 or notes:0.9987 or notes:0.9988 or notes:0.9989 or notes:0.999 or notes:1.0)) or (is:hunter ((notes:0.99 -(notes:0.990 or notes:0.991)) or notes:1.0)))
+
+  DIM JUNK
+  -tag:keep -tag:archive -tag:junk notes:0.9 -((is:titan (notes:0.9996 or notes:0.9997 or notes:0.9998 or notes:0.9999 or notes:1.0)) or (is:warlock (notes:0.9985 or notes:0.9986 or notes:0.9987 or notes:0.9988 or notes:0.9989 or notes:0.999 or notes:1.0)) or (is:hunter ((notes:0.99 -(notes:0.990 or notes:0.991)) or notes:1.0)))
+
+  DIM INFUSE
+  is:armor -is:exotic -tag:archive -name:"masquerader's" (-notes:_max or (-notes:0.9 -notes:1.0)) is:maxpower -is:masterwork
+
+  -----------------------------------------------------------
+
+  DIM ARMOR RESET
+  is:armor -tag:archive -tag:junk -is:classitem is:tagged
+
+  DIM EXOTIC LEFTOVERS
+  is:armor tag:none -is:classitem -notes:exotic
+*/
