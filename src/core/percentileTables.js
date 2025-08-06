@@ -1,4 +1,158 @@
-// Data collected from TMMania's thorough simulation of 350 million pieces of armor:
+// Armor 3.0 calculated stat sums
+
+const twoStatsA3 = [
+  { percentile: 0.0000, value: 0 },
+  { percentile: 0.0156, value: 1 },
+  { percentile: 0.0312, value: 2 },
+  { percentile: 0.0468, value: 3 },
+  { percentile: 0.0624, value: 4 }, // A2.0 Min Masterworked (+ 4)
+  { percentile: 0.0780, value: 5 },
+  { percentile: 0.0936, value: 6 },
+  { percentile: 0.1092, value: 7 },
+  { percentile: 0.1248, value: 8 },
+  { percentile: 0.1404, value: 9 },
+  { percentile: 0.1560, value: 10 },
+  { percentile: 0.1716, value: 11 },
+  { percentile: 0.1872, value: 12 },
+  { percentile: 0.2028, value: 13 },
+  { percentile: 0.2184, value: 14 },
+  { percentile: 0.2340, value: 15 },
+  { percentile: 0.2496, value: 16 },
+  { percentile: 0.2652, value: 17 },
+  { percentile: 0.2808, value: 18 },
+  { percentile: 0.2964, value: 19 },
+  { percentile: 0.3120, value: 20 },
+  { percentile: 0.3276, value: 21 },
+  { percentile: 0.3432, value: 22 },
+  { percentile: 0.3588, value: 23 },
+  { percentile: 0.3744, value: 24 },
+  { percentile: 0.3900, value: 25 },
+  { percentile: 0.4056, value: 26 },
+  { percentile: 0.4212, value: 27 },
+  { percentile: 0.4368, value: 28 },
+  { percentile: 0.4524, value: 29 },
+  { percentile: 0.4680, value: 30 },
+  { percentile: 0.4836, value: 31 },
+  { percentile: 0.4992, value: 32 },
+  { percentile: 0.5148, value: 33 },
+  { percentile: 0.5304, value: 34 },
+  { percentile: 0.5460, value: 35 },
+  { percentile: 0.5616, value: 36 },
+  { percentile: 0.5772, value: 37 },
+  { percentile: 0.5928, value: 38 },
+  { percentile: 0.6084, value: 39 },
+  { percentile: 0.6240, value: 40 },
+  { percentile: 0.6396, value: 41 },
+  { percentile: 0.6552, value: 42 },
+  { percentile: 0.6708, value: 43 }, // T1 Min (~28+15)
+  { percentile: 0.6864, value: 44 },
+  { percentile: 0.7020, value: 45 },
+  { percentile: 0.7176, value: 46 }, // T2 Min (~28+18)
+  { percentile: 0.7332, value: 47 }, // T1 Max (30+17)
+  { percentile: 0.7488, value: 48 },
+  { percentile: 0.7644, value: 49 }, // T3 Min (~28+21)
+  { percentile: 0.7800, value: 50 }, // T2 Max (30+20)
+  { percentile: 0.7956, value: 51 }, // T4 Min (~28+23)
+  { percentile: 0.8112, value: 52 },
+  { percentile: 0.8268, value: 53 }, // T3 Max (30+23)
+  { percentile: 0.8424, value: 54 },
+  { percentile: 0.8580, value: 55 }, // T4 Max / T5 (30+25)
+  { percentile: 0.8736, value: 56 },
+  { percentile: 0.8892, value: 57 },
+  { percentile: 0.9048, value: 58 },
+  { percentile: 0.9204, value: 59 },
+  { percentile: 0.9360, value: 60 }, // T5 Enhanced (30+25 + 5)
+  { percentile: 0.9516, value: 61 },
+  { percentile: 0.9672, value: 62 },
+  { percentile: 0.9828, value: 63 },
+  { percentile: 0.9984, value: 64 }  // A2.0 Max Masterworked (30+30 + 4)
+];
+
+const threeStatsA3 = [
+  { percentile: 0.0000, value: 0 },
+  { percentile: 0.0125, value: 1 },
+  { percentile: 0.0250, value: 2 },
+  { percentile: 0.0375, value: 3 },
+  { percentile: 0.0500, value: 4 },
+  { percentile: 0.0625, value: 5 },
+  { percentile: 0.0750, value: 6 },  // A2.0 Min Masterworked (+ 6)
+  { percentile: 0.0875, value: 7 },
+  { percentile: 0.1000, value: 8 },
+  { percentile: 0.1125, value: 9 },
+  { percentile: 0.1250, value: 10 },
+  { percentile: 0.1375, value: 11 },
+  { percentile: 0.1500, value: 12 },
+  { percentile: 0.1625, value: 13 },
+  { percentile: 0.1750, value: 14 },
+  { percentile: 0.1875, value: 15 },
+  { percentile: 0.2000, value: 16 },
+  { percentile: 0.2125, value: 17 },
+  { percentile: 0.2250, value: 18 },
+  { percentile: 0.2375, value: 19 },
+  { percentile: 0.2500, value: 20 },
+  { percentile: 0.2625, value: 21 },
+  { percentile: 0.2750, value: 22 },
+  { percentile: 0.2875, value: 23 },
+  { percentile: 0.3000, value: 24 },
+  { percentile: 0.3125, value: 25 },
+  { percentile: 0.3250, value: 26 },
+  { percentile: 0.3375, value: 27 },
+  { percentile: 0.3500, value: 28 },
+  { percentile: 0.3625, value: 29 },
+  { percentile: 0.3750, value: 30 },
+  { percentile: 0.3875, value: 31 },
+  { percentile: 0.4000, value: 32 },
+  { percentile: 0.4125, value: 33 },
+  { percentile: 0.4250, value: 34 },
+  { percentile: 0.4375, value: 35 },
+  { percentile: 0.4500, value: 36 },
+  { percentile: 0.4625, value: 37 },
+  { percentile: 0.4750, value: 38 },
+  { percentile: 0.4875, value: 39 },
+  { percentile: 0.5000, value: 40 },
+  { percentile: 0.5125, value: 41 },
+  { percentile: 0.5250, value: 42 },
+  { percentile: 0.5375, value: 43 },
+  { percentile: 0.5500, value: 44 },
+  { percentile: 0.5625, value: 45 },
+  { percentile: 0.5750, value: 46 },
+  { percentile: 0.5875, value: 47 },
+  { percentile: 0.6000, value: 48 },
+  { percentile: 0.6125, value: 49 },
+  { percentile: 0.6250, value: 50 },
+  { percentile: 0.6375, value: 51 },
+  { percentile: 0.6500, value: 52 }, // T1 Min (~28+15+9)
+  { percentile: 0.6625, value: 53 },
+  { percentile: 0.6750, value: 54 },
+  { percentile: 0.6875, value: 55 },
+  { percentile: 0.7000, value: 56 },
+  { percentile: 0.7125, value: 57 }, // T1 Max (30+17+10)
+  { percentile: 0.7250, value: 58 }, // T2 Min (~28+18+12)
+  { percentile: 0.7375, value: 59 },
+  { percentile: 0.7500, value: 60 },
+  { percentile: 0.7625, value: 61 },
+  { percentile: 0.7750, value: 62 },
+  { percentile: 0.7875, value: 63 }, // T2 Max (30+20+13)
+  { percentile: 0.8000, value: 64 }, // T3 Min (~28+21+15)
+  { percentile: 0.8125, value: 65 },
+  { percentile: 0.8250, value: 66 },
+  { percentile: 0.8375, value: 67 },
+  { percentile: 0.8500, value: 68 }, // A2.0 Max Masterworked (30+20+12 + 6)
+  { percentile: 0.8625, value: 69 }, // T3 Max (30+23+16)
+  { percentile: 0.8750, value: 70 }, // T4 Min (~28+23+19)
+  { percentile: 0.8875, value: 71 },
+  { percentile: 0.9000, value: 72 },
+  { percentile: 0.9125, value: 73 },
+  { percentile: 0.9250, value: 74 },
+  { percentile: 0.9375, value: 75 }, // T4/T5 Max (30+25+20)
+  { percentile: 0.9500, value: 76 },
+  { percentile: 0.9625, value: 77 },
+  { percentile: 0.9750, value: 78 },
+  { percentile: 0.9875, value: 79 },
+  { percentile: 1.0000, value: 80 }  // // T5 Enhanced (30+25+20 + 5)
+];
+
+// Data collected from TMMania's thorough simulation of 350 million pieces of armor 2.0:
   // https://docs.google.com/spreadsheets/d/1W6i7ZAxS5DF4ojeZr33I67Ds4ZRmBQuJo3YPMePK5uo
 
 const totalStat = [
@@ -231,4 +385,4 @@ const fiveStats = [
 //   { percentile: 1, value: 11.16 }
 // ];
 
-export { totalStat, twoStats, threeStats, fourStats, fiveStats }
+export { totalStat, twoStats, threeStats, fourStats, fiveStats, twoStatsA3, threeStatsA3 }
