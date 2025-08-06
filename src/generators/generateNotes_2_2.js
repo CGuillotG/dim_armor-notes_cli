@@ -1,7 +1,7 @@
 /**
  * generateNotes_2_2.js - Linear Percentile Analysis System
  *
- * Simplified percentile analysis aproach for a more deterministic Armor 3.0 model. Handles armor with 2 or 3 spikes, which covers all of Armor 3.0 and only Armor 2.0 worth keeping.
+ * Simplified percentile analysis approach for a more deterministic Armor 3.0 model. Handles armor with 2 or 3 spikes, which covers all of Armor 3.0 and only Armor 2.0 worth keeping.
  *
  * Provides precise percentile rankings for all classes including class items.
  * This is the recommended method and current default.
@@ -268,6 +268,15 @@ const getDistPercentile = (distList, armor) => {
     statSum += 3
   }
 
+  // Add Armor 2.0 masterwork bonuses
+  if (armor.Tier === '0') {
+    if (spikes === 2) {
+      statSum += 4
+    } else if (spikes === 3) {
+      statSum += 6
+    }
+  }
+
   return matchPercentileTable(statSum, spikes)
 }
 
@@ -300,13 +309,13 @@ const matchPercentileTable = (value, spikes) => {
   -tag:favorite -tag:archive -tag:junk -(is:classitem is:exotic) (notes:0.8 or notes:0.9 or notes:1.0)
 
   DIM KEEP
-  -tag:keep -tag:archive -tag:junk -(is:classitem is:exotic) (notes:0.7)
+  -tag:keep -tag:archive -tag:junk -(is:classitem is:exotic) (notes:0.75 or notes:0.76 or notes:0.77 or notes:0.78 or notes:0.79)
 
   DIM JUNK
-  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.7 -notes:0.8 -notes:0.9 -notes:1.0)) (-is:maxpower or (is:maxpower is:masterwork))
+  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)) (-is:maxpower or (is:maxpower is:masterwork))
 
   DIM INFUSE
-  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.7 -notes:0.8 -notes:0.9 -notes:1.0)) is:maxpower -is:masterwork
+  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)) is:maxpower -is:masterwork
 
   -----------------------------------------------------------
 
