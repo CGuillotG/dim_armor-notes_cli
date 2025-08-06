@@ -64,7 +64,7 @@ const statClassDists = [
   [['Mob', 'Res', 'Rec', 'Dis', 'Int'], []],
 ]
 
-const totalStatClasses = [['Total'], ['Titan']]
+const totalStatClasses = [['Total'], ['Titan', 'Warlock']]
 
 const maxDists = {} //Populate initial maxDistCombos
 const maxTotal = {}
