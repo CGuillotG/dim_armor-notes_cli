@@ -14,58 +14,52 @@ import { oldNotes, guardians, slots, classSlots, fieldMap, extraArmor } from '..
 import { twoStatsA3, threeStatsA3 } from '../core/percentileTables.js'
 
 const a2_statClassDists = [
-  [['Wep', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
+  [['Wep', 'Gre'], ['Warlock', 'Titan', 'Hunter']], // Gunner
   [['Wep', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
   [['Wep', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
   [['Hel', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
   [['Hel', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
+  [['Hel', 'Mel'], ['Warlock', 'Titan', 'Hunter']], // Brawler
   [['Cls', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
   [['Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
   [['Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Gre', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Gre', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Gre', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Gre', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Cls', 'Gre', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Cls', 'Gre', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Cls', 'Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']]
+  // [['Wep', 'Gre', 'Sup'], ['Titan', 'Hunter']],
+  // [['Wep', 'Gre', 'Mel'], ['Titan', 'Hunter']],
+  // [['Wep', 'Sup', 'Mel'], ['Titan', 'Hunter']],
+  // [['Hel', 'Gre', 'Sup'], ['Titan', 'Hunter']],
+  // [['Hel', 'Gre', 'Mel'], ['Titan', 'Hunter']],
+  // [['Hel', 'Sup', 'Mel'], ['Titan', 'Hunter']],
+  // [['Cls', 'Gre', 'Sup'], ['Titan', 'Hunter']],
+  // [['Cls', 'Gre', 'Mel'], ['Titan', 'Hunter']],
+  // [['Cls', 'Sup', 'Mel'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Gre'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Gre'], ['Titan', 'Hunter']],
+  // [['Hel', 'Cls', 'Gre'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Sup'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Sup'], ['Titan', 'Hunter']],
+  // [['Hel', 'Cls', 'Sup'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Mel'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Mel'], ['Titan', 'Hunter']],
+  // [['Hel', 'Cls', 'Mel'], ['Titan', 'Hunter']]
 ]
 
 const a3_statClassDists = [
   [['Wep', 'Hel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Gre', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
+  [['Wep', 'Cls'], ['Warlock', 'Titan', 'Hunter']], // Specialist
+  [['Hel', 'Cls'], ['Warlock', 'Titan', 'Hunter']], // Bulwark
+  [['Gre', 'Sup'], ['Warlock', 'Titan', 'Hunter']], // Grenadier
   [['Gre', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Cls'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Hel', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Gre'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Wep', 'Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls', 'Sup'], ['Warlock', 'Titan', 'Hunter']],
-  [['Hel', 'Cls', 'Mel'], ['Warlock', 'Titan', 'Hunter']],
-  [['Gre', 'Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']]
+  [['Sup', 'Mel'], ['Warlock', 'Titan', 'Hunter']], // Paragon
+  // [['Wep', 'Hel', 'Cls'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Gre'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Sup'], ['Titan', 'Hunter']],
+  // [['Wep', 'Hel', 'Mel'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Gre'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Sup'], ['Titan', 'Hunter']],
+  // [['Wep', 'Cls', 'Mel'], ['Titan', 'Hunter']],
+  // [['Hel', 'Cls', 'Sup'], ['Titan', 'Hunter']],
+  // [['Hel', 'Cls', 'Mel'], ['Titan', 'Hunter']],
+  // [['Gre', 'Sup', 'Mel'], ['Titan', 'Hunter']]
 ]
 
 const statClassDists = [...a2_statClassDists, ...a3_statClassDists]
@@ -306,16 +300,40 @@ const matchPercentileTable = (value, spikes) => {
 //DIM Queries
 /*
   DIM FAV
-  -tag:favorite -tag:archive -tag:junk -(is:classitem is:exotic) (notes:0.8 or notes:0.9 or notes:1.0)
+  -tag:favorite -tag:archive -tag:junk -(is:classitem is:exotic) (
+    (
+      is:warlock (notes:0.85 or notes:0.86 or notes:0.87 or notes:0.88 or notes:0.89 or notes:0.9 or notes:1.0)
+    ) or (
+      (is:titan or is:hunter) (notes:0.8 or notes:0.9 or notes:1.0)
+    )
+  )
 
   DIM KEEP
-  -tag:keep -tag:archive -tag:junk -(is:classitem is:exotic) (notes:0.75 or notes:0.76 or notes:0.77 or notes:0.78 or notes:0.79)
-
+  -tag:keep -tag:archive -tag:junk -(is:classitem is:exotic) (
+    (
+      is:warlock (notes:0.78 or notes:0.79 or notes:0.80 or notes:0.81 or notes:0.82 or notes:0.83 or notes:0.84)
+    ) or (
+      (is:titan or is:hunter) (notes:0.75 or notes:0.76 or notes:0.77 or notes:0.78 or notes:0.79)
+    )
+  )
+  
   DIM JUNK
-  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)) (-is:maxpower or (is:maxpower is:masterwork))
+  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (
+    (
+      is:warlock (-notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)
+    ) or (
+      (is:titan or is:hunter) (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)
+    )
+  ) ) -is:maxpower
 
   DIM INFUSE
-  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)) is:maxpower -is:masterwork
+  is:armor -is:exotic -tag:archive -name:"masquerader" (-notes:_max or (
+    (
+      is:warlock (-notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)
+    ) or (
+      (is:titan or is:hunter) (-notes:0.75 -notes:0.76 -notes:0.77 -notes:0.78 -notes:0.79 -notes:0.8 -notes:0.9 -notes:1.0)
+    )
+  ) ) is:maxpower
 
   -----------------------------------------------------------
 
