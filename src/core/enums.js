@@ -26,7 +26,7 @@ const fieldMap = {
 const a2_topFields = ['Mob', 'Res', 'Rec']
 const a2_bottomFields = ['Dis', 'Int', 'Str']
 
-const topFields = ['Wep', 'Hea', 'Cls']
+const topFields = ['Wep', 'Hel', 'Cls']
 const bottomFields = ['Gre', 'Sup', 'Mel']
 
 // Import extra armor data from extraArmorData.js
