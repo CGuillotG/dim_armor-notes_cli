@@ -30,36 +30,36 @@ const archetypeMap = {
 const a3_archetypeClassFilters = [
   // Paragon (Sup+Mel)
   ['ParagonWep', ['Warlock', 'Titan', 'Hunter']],
-  ['ParagonHel', ['Warlock', 'Titan', 'Hunter']],
+  ['ParagonHel', ['Titan']],
   ['ParagonCls', ['Warlock', 'Titan', 'Hunter']],
   ['ParagonGre', ['Warlock', 'Titan', 'Hunter']],
   
   // Grenadier (Gre+Sup)
   ['GrenadierWep', ['Warlock', 'Titan', 'Hunter']],
-  ['GrenadierHel', ['Warlock', 'Titan', 'Hunter']],
+  ['GrenadierHel', ['Titan']],
   ['GrenadierCls', ['Warlock', 'Titan', 'Hunter']],
   ['GrenadierMel', ['Warlock', 'Titan', 'Hunter']],
   
   // Specialist (Cls+Wep)
-  ['SpecialistHel', ['Warlock', 'Titan', 'Hunter']],
+  ['SpecialistHel', ['Titan']],
   ['SpecialistGre', ['Warlock', 'Titan', 'Hunter']],
   ['SpecialistSup', ['Warlock', 'Titan', 'Hunter']],
   ['SpecialistMel', ['Warlock', 'Titan', 'Hunter']],
   
   // Brawler (Mel+Hel)
-  ['BrawlerWep', ['Warlock', 'Titan', 'Hunter']],
-  ['BrawlerCls', ['Warlock', 'Titan', 'Hunter']],
-  ['BrawlerGre', ['Warlock', 'Titan', 'Hunter']],
-  ['BrawlerSup', ['Warlock', 'Titan', 'Hunter']],
+  ['BrawlerWep', ['Titan']],
+  ['BrawlerCls', ['Titan']],
+  ['BrawlerGre', ['Titan']],
+  ['BrawlerSup', ['Titan']],
   
   // Bulwark (Hel+Cls)
-  ['BulwarkWep', ['Warlock', 'Titan', 'Hunter']],
-  ['BulwarkGre', ['Warlock', 'Titan', 'Hunter']],
-  ['BulwarkSup', ['Warlock', 'Titan', 'Hunter']],
-  ['BulwarkMel', ['Warlock', 'Titan', 'Hunter']],
+  ['BulwarkWep', ['Titan']],
+  ['BulwarkGre', ['Titan']],
+  ['BulwarkSup', ['Titan']],
+  ['BulwarkMel', ['Titan']],
   
   // Gunner (Wep+Gre)
-  ['GunnerHel', ['Warlock', 'Titan', 'Hunter']],
+  ['GunnerHel', ['Titan']],
   ['GunnerCls', ['Warlock', 'Titan', 'Hunter']],
   ['GunnerSup', ['Warlock', 'Titan', 'Hunter']],
   ['GunnerMel', ['Warlock', 'Titan', 'Hunter']]
@@ -74,9 +74,9 @@ const a2_statClassFilters = [
   ['WepMel', ['Warlock', 'Titan', 'Hunter']],
   
   // Health trios
-  ['HelGre', ['Warlock', 'Titan', 'Hunter']],
-  ['HelSup', ['Warlock', 'Titan', 'Hunter']],
-  ['HelMel', ['Warlock', 'Titan', 'Hunter']],
+  ['HelGre', ['Warlock', 'Titan']],
+  ['HelSup', ['Warlock', 'Titan']],
+  ['HelMel', ['Warlock', 'Titan']],
   
   // Class trios
   ['ClsGre', ['Warlock', 'Titan', 'Hunter']],
@@ -85,17 +85,17 @@ const a2_statClassFilters = [
   
   // Grenade trios
   ['GreWep', ['Warlock', 'Titan', 'Hunter']],
-  ['GreHel', ['Warlock', 'Titan', 'Hunter']],
+  ['GreHel', ['Warlock', 'Titan']],
   ['GreCls', ['Warlock', 'Titan', 'Hunter']],
   
   // Super trios
   ['SupWep', ['Warlock', 'Titan', 'Hunter']],
-  ['SupHel', ['Warlock', 'Titan', 'Hunter']],
+  ['SupHel', ['Warlock', 'Titan']],
   ['SupCls', ['Warlock', 'Titan', 'Hunter']],
   
   // Melee trios
   ['MelWep', ['Warlock', 'Titan', 'Hunter']],
-  ['MelHel', ['Warlock', 'Titan', 'Hunter']],
+  ['MelHel', ['Warlock', 'Titan']],
   ['MelCls', ['Warlock', 'Titan', 'Hunter']]
 ]
 
@@ -153,7 +153,7 @@ const generateNewArmor = path => {
     return [...originalArmor].map(armor => {
       armor.Id = armor.Id.replace(/"""/g, '"')
 
-      // Fix for Festival of the Lost Masks
+      // Fix for Festival of the Lost Masks with Stats
       if (armor.Type === 'Festival Mask') {
         armor.Type = 'Helmet'
         armor.isFestivalMask = true
@@ -249,7 +249,10 @@ const generateNewArmor = path => {
         if (bestDistValue > 0) {
           textNotes.push(`.${bestDistName}.`)
         } else {
-          // textNotes.push('Junk')
+          // Only add 'Junk' if there are no old notes to preserve
+          if (!oldNotes.some(oldNote => armor.Notes && armor.Notes.includes(oldNote))) {
+            textNotes.push('Junk')
+          }
         }
       }
 
@@ -403,27 +406,27 @@ const updateA20MaxFromA30 = armor => {
     ) or (
       is:armor3.0 not:exotic (basestat:highest+secondhighest:>=48 basestat:highest+secondhighest:<55)
     ) or (
-      is:exotic (basestat:highest+secondhighest+thirdhighest:>=59 basestat:highest+secondhighest:<50)
+      is:exotic ((basestat:highest+secondhighest+thirdhighest:>=59 or notes:_max) basestat:highest+secondhighest:<50)
     )
   )
   
   DIM JUNK
-  is:armor not:exotic -tag:archive -name:"masquerader" (-notes:_max or (
+  is:armor not:exotic -tag:archive -name:"masquerader" ((-notes:_max -notes:KeepSet) or notes:junk or (
     (
       is:armor2.0 basestat:highest+secondhighest:<46
     ) or (
       is:armor3.0 basestat:highest+secondhighest:<48
     )
-  ) ) -(is:maxpower -power:powerfloor)
+  )) -((is:maxpower or power:powerfulcap) -power:powerfloor)
 
   DIM INFUSE
-  is:armor not:exotic -tag:archive -name:"masquerader" (-notes:_max or (
+  is:armor not:exotic -tag:archive -name:"masquerader" ((-notes:_max -notes:KeepSet) or notes:junk or (
     (
       is:armor2.0 basestat:highest+secondhighest:<46
     ) or (
       is:armor3.0 basestat:highest+secondhighest:<48
     )
-  ) ) is:maxpower -power:powerfloor
+  )) (is:maxpower or power:powerfulcap) -power:powerfloor
 
   -----------------------------------------------------------
 
