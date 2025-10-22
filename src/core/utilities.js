@@ -28,7 +28,9 @@ export const printDifferences = newArmor => {
     'Leg Armor': '🩳',
     'Warlock Bond': '🔮',
     'Titan Mark': '🔮',
-    'Hunter Cloak': '🔮'
+    'Hunter Cloak': '🔮',
+    'Mask': '🎃',
+    'Any': '?'
   }
   const customOrder = ['Helmet', 'Gauntlets', 'Chest Armor', 'Leg Armor']
 
