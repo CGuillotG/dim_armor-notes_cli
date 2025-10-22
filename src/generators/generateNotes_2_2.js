@@ -6,7 +6,6 @@
  * Provides precise percentile rankings for all classes including class items.
  * This is the recommended method and current default.
  *
- * Quality: Excellent ⭐⭐⭐⭐⭐
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
@@ -94,7 +93,7 @@ for (let guardian of guardians) {
 }
 
 export const generateNotes_2_2 = async (originPath, destinationPath) => {
-  console.log('Generating Notes for Version 2.2...')
+  console.log('Generating Notes using Method 2.2...')
   generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)

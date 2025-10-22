@@ -6,7 +6,6 @@
  * Provides precise percentile rankings and supports all classes with mobility builds.
  * This is the recommended method for Armor 2.0.
  * 
- * Quality: Excellent ⭐⭐⭐⭐⭐
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
@@ -92,7 +91,7 @@ for (let guardian of guardians) {
 }
 
 export const generateNotes_2_0 = async (originPath, destinationPath) => {
-  console.log('Generating Notes for Version 3...')
+  console.log('Generating Notes using Method 3...')
   generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)

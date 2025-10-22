@@ -7,11 +7,11 @@ This CLI tool analyzes Destiny 2 armor stat CSV exports (from [Destiny Item Mana
 
 ## Features
 - Processes DIM armor CSV exports and adds/updates Notes for each armor piece
-- Three evaluation methods:
-  - **2.0 (default, recommended):** Percentile analysis using stat lookup tables, supports Artifice/Iron Banner mods, precise percentile ranks.
-    - Note: The 2.0 method uses a hardcoded `statClassDists` object reflecting preferred stat combinations for each class. Not all possible stat combinations are considered for all classes—only those deemed relevant or optimal are included.
-  - **1.2 (legacy, hard to finetune):** Distribution scoring with build-focused, Fibonacci-weighted rankings 
-  - **1.1 (legacy, not recommended):** Simple rule-based GOD/GREAT/GOOD/MAYBE/SHARD classification 
+- Four evaluation methods:
+  - **3.0 (default, recommended):** Archetype-based analysis with class filtering for both Armor 2.0 and 3.0. Provides practical stat combination ratings.
+  - **2.2:** Linear percentile analysis focused on 2-3 spike armor pieces
+  - **2.0:** Percentile analysis using comprehensive stat lookup tables for Armor 2.0
+  - **1.1 (legacy):** Simple rule-based GOD/GREAT/GOOD/MAYBE/SHARD classification 
 - Supports all classes and armor slots
 - Outputs a new CSV with updated Notes
 
@@ -28,15 +28,15 @@ npm install
 
 ## Usage
 ```sh
-DIM-Armor-Notes --origin <input_csv> --destination <output_csv> [--method <2.0|1.2|1.1>]
+DIM-Armor-Notes --origin <input_csv> --destination <output_csv> [--method <3.0|2.2|2.0|1.1>]
 ```
 - `--origin` (`-o`): Input DIM CSV file (default: `storage/destiny-armor.csv`)
 - `--destination` (`-d`): Output CSV file (default: `storage/destiny-armor-notes.csv`)
-- `--method` (`-m`): Evaluation method (2.0, 1.2, or 1.1; default: 2.0)
+- `--method` (`-m`): Evaluation method (3.0, 2.2, 2.0, or 1.1; default: 3.0)
 
 ### Example
 ```csv
-DIM-Armor-Notes -o storage/destiny-armor.csv -d storage/destiny-armor-notes.csv -m 2.0
+DIM-Armor-Notes -o storage/destiny-armor.csv -d storage/destiny-armor-notes.csv -m 3.0
 ```
 
 ## Input/Output Format
@@ -48,9 +48,10 @@ DIM-Armor-Notes -o storage/destiny-armor.csv -d storage/destiny-armor-notes.csv 
 - **Output:** Similar as input, with updated/added `Notes` column containing stat-based recommendations and percentile info.
 
 ## Methods
-- **2.0 (default):** Percentile analysis, best for modern armor and build crafting
-- **1.2:** Build-focused scoring, legacy but useful for specific stat distributions
-- **1.1:** Simple rule-based, legacy for quick filtering
+- **3.0 (default):** Archetype-based analysis with class filtering, best for both Armor 2.0 and 3.0
+- **2.2:** Linear percentile system for 2-3 spike armor
+- **2.0:** Comprehensive percentile analysis for Armor 2.0 only
+- **1.1:** Simple rule-based system, legacy
 
 ## Author
 CGuillot (<carlos@guillot.dev>)

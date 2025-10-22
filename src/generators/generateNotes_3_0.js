@@ -1,15 +1,14 @@
 /**
- * generateNotes_2_4.js - Archetype-Based Analysis System with Class Filtering
+ * generateNotes_3_0.js - Archetype-Based Analysis System with Class Filtering
  *
- * Rates Armor 3.0 by archetype + tertiary stat combinations (e.g., "GunnerCls")
- * Rates Armor 2.0 by cross-group 2-stat combinations, comparing against A3.0 pieces
- * Focuses on base total stats rather than percentiles for cleaner, more practical evaluation
+ * Production-ready armor evaluation system that rates Armor 3.0 by archetype + tertiary stat combinations (e.g., "GunnerCls")
+ * and rates Armor 2.0 by cross-group 2-stat combinations, comparing against A3.0 pieces.
+ * Focuses on base total stats rather than percentiles for cleaner, more practical evaluation.
  * 
  * Features class filtering arrays that allow customization of which stat combinations
  * each class should track, enabling inventory management while maintaining the most
  * relevant armor combinations for each guardian type.
  *
- * Quality: Excellent ⭐⭐⭐⭐⭐
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
@@ -125,8 +124,8 @@ for (let guardian of guardians) {
   }
 }
 
-export const generateNotes_2_4 = async (originPath, destinationPath) => {
-  console.log('Generating Notes for Version 2.4...')
+export const generateNotes_3_0 = async (originPath, destinationPath) => {
+  console.log('Generating Notes using Method 3.0...')
   generateNewArmor(originPath)
     .then(newArmor => {
       return hasMaxDist(newArmor)

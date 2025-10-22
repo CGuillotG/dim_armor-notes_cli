@@ -5,7 +5,6 @@
  * Simple GOD/GREAT/GOOD/MAYBE/SHARD classification with basic rules.
  * Legacy method - functional but less sophisticated than newer approaches.
  * 
- * Quality: Basic ⭐⭐
  */
 
 import { reduceNewNotes, printDifferences, saveJsonToCsv, getArmor } from '../core/utilities.js'
