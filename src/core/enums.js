@@ -4,7 +4,7 @@ const fields = ['Weapons (Base)', 'Health (Base)', 'Class (Base)', 'Grenade (Bas
 const totalField = 'Total (Base)'
 const slots = ['Helmet', 'Gauntlets', 'Chest Armor', 'Leg Armor']
 const classSlots = ['Titan Mark', 'Warlock Bond', 'Hunter Cloak']
-const oldNotes = ['AFK', 'TEMP', 'EXOTIC', 'IB', 'Artifice', 'Trials', 'LastWish']
+const oldNotes = ['AFK', 'TEMP', 'EXOTIC', 'IB', 'Artifice', 'KeepSet']
 
 const fieldMap = {
   // Armor 2.0
